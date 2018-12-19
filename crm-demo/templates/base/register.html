@@ -1,0 +1,77 @@
+<html lang="zh" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8"/>
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+    <link rel="shortcut icon" type="text/css" href="/static/img/ooopic_1540555990.ico">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <form action="" method="post" novalidate>
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="title">{{ field.label }}</label>
+                            {{ field }}
+                            <span class="pull-right" style="color: #f00;">{{ field.errors.0 }}</span>
+                        </div>
+
+                    {% endfor %}
+                    <span class="pull-right">{{ field.errors }}</span>
+                    <input type="submit" class="btn btn-primary reg_btn" value="注册">
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="/static/bootstrap/js/jquery.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="/static/bootstrap/js/bootstrap.js"></script>
+
+<script>
+    $("reg_btn").click(function () {
+        $.ajax({
+            url: "",
+            type: "post",
+            data: {
+                user: $("#id_user").val(),
+                pwd: $("#id_pwd").val(),
+                r_pwd: $("#id_r_pwd").val(),
+                email: $("#id_email").val(),
+                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+
+            },
+            success: function (res) {
+                console.log(res);
+
+                if (res.user) {
+                    // 注册成功
+                    location.href = "/login/"
+                }
+                else {
+
+                    // 清除错误
+                    $(".error").html("");
+                    $(".form-group").removeClass("has-error");
+
+                    //  展示新的错误
+                    $.each(res.err_msg, function (i, j) {
+                        console.log(i, j);
+
+                        $("#id_" + i).next().html(j[0]).css("color", "red").parent().addClass("has-error")
+
+                    })
+                }
+            }
+        })
+
+    })
+</script>
+</body>
+</html>

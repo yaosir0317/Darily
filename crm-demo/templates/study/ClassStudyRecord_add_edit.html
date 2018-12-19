@@ -1,0 +1,35 @@
+{% extends 'base/site_base.html' %}
+
+{% block content %}
+
+
+    <div class="card" style="height: 1350px">
+        <div class="card-header" style="margin-bottom: 30px">
+            <div class="card-title">
+                {% if edit_obj %}
+                    <div class="title" style="margin:10px 20px 0 0">Edit ClassStudyRecord</div>
+                {% else %}
+                    <div class="title" style="margin:10px 20px 0 0">Add ClassStudyRecord</div>
+                {% endif %}
+
+            </div>
+
+        </div>
+        <!--批量操作 -->
+        <div class="col-xs-6 col-md-offset-1" style="position: relative">
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="">{{ field.label }}</label>
+                        {{ field }}
+                        <span class="pull-right" style="color: #f00">{{ field.errors.0 }}</span>
+                    </div>
+                {% endfor %}
+                <button class="btn btn-info pull-right" style="position: absolute;right: 20px;bottom: -50px">提交
+                </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

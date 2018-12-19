@@ -1,0 +1,114 @@
+{% extends 'base/site_base.html' %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="title">Class Study Record</div>
+            </div>
+        </div>
+
+    <!--批量操作 -->
+        <form action="" method="post" class="form-group">
+            {% csrf_token %}
+            <div class="my-table-top">
+                <div class="form-inline" style="margin:10px 0 0 20px">
+                    <select class="form-control" name="action">
+                        <option value="">--------------------</option>
+                        <option value="patch_generate">generate students study record on selected</option>
+                        <option value="patch_detete">delete students study record from selected</option>
+                    </select>
+                    <input type="submit" value="go" class="form-control">
+                    <a href="{% url 'ClassStudyRecordAdd' %}{{ next_path }}"
+                           class="btn pull-right btn-info active" style="margin: 0 20px 0 0">add
+                            class</a>
+{#                    {% load web %}#}
+{#                    {% if "CustomerTableAdd"|has_permission:request %}#}
+{#                        <a href="{% url 'CustomerTableAdd' %}{{ next_path }}"#}
+{#                           class="btn pull-right btn-info active" style="margin: 0 20px 0 0">add#}
+{#                            customer</a>#}
+{#                    {% endif %}#}
+
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Table -->
+                <table class="datatable table table-striped" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>选择</th>
+                        <th>班级</th>
+                        <th>节次</th>
+                        <th>讲师</th>
+                        <th>考勤</th>
+                        <th>学生成绩</th>
+                        <th>编辑</th>
+                        <th>删除</th>
+{#                        {% if "CustomerTableEdit"|has_permission:request %}#}
+{#                            <th>编辑</th>#}
+{#                        {% endif %}#}
+{##}
+{#                        {% if "CustomerTableDelete"|has_permission:request %}#}
+{#                            <th>删除</th>#}
+{#                        {% endif %}#}
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for class in class_study_list %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="selected_pk_list" value="{{ class.pk }}"
+                                       class="checklist">
+                            </td>
+                            <td>{{ class.class_obj }}</td>
+                            <td>{{ class.day_num }}</td>
+                            <td>{{ class.teacher }}</td>
+                            <td>考勤</td>
+                            <td><a href="{% url 'AddStudentStudyRecord'  class.pk %}"
+                                   style="color:#A6E22E">评分</a></td>
+                            <td>
+                                    <a href="{% url 'ClassStudyRecordEdit' class.pk %}{{ next_path }} "
+                                       class="fa fa-edit" aria-hidden="true"
+                                       style="color:#FFC125;margin-right: 10px;font-size: 18px;position: relative;top: 4px"></a>
+                                </td>
+                            <td>
+                                    <a href="{% url 'ClassStudyRecordDelete' class.pk %}{{ next_path }}"
+                                       class="fa fa-trash-o fa-lg" aria-hidden="true"
+                                       style="color:#f00 ;line-height: 16px"></a>
+                                </td>
+{#                            {% if "CustomerTableEdit"|has_permission:request %}#}
+{#                                <td>#}
+{#                                    <a href="{% url "CustomerTableEdit" customer.pk %}{{ next_path }} "#}
+{#                                       class="fa fa-edit" aria-hidden="true"#}
+{#                                       style="color:#FFC125;margin-right: 10px;font-size: 18px;position: relative;top: 4px"></a>#}
+{#                                </td>#}
+{#                            {% endif %}#}
+{##}
+{#                            {% if "CustomerTableDelete"|has_permission:request %}#}
+{#                                <td>#}
+{#                                    <a href="{% url "CustomerTableDelete" customer.pk %}{{ next_path }}"#}
+{#                                       class="fa fa-trash-o fa-lg" aria-hidden="true"#}
+{#                                       style="color:#f00 ;line-height: 16px"></a>#}
+{#                                </td>#}
+{#                            {% endif %}#}
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}
+
+{% block js %}
+    <script>
+
+    </script>
+
+{% endblock js %}

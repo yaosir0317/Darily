@@ -1,0 +1,64 @@
+{% extends 'base/site_base.html' %}
+
+
+{% block content %}
+
+    <div class="card" style="height: 100%">
+        <form action="" method="post" novalidate>
+            <div class="card-header" style="margin-bottom: 30px">
+                <div class="card-title">
+                    <div class="title" style="margin:10px 20px 0 0">录入
+                        {{ class_study_record_obj.class_obj }}day{{ class_study_record_obj.day_num }}成绩成绩
+                    </div>
+                </div>
+                <div class="pull-right">
+                        <button class="btn btn-info pull-right btn-sm" style="margin: 15px 30px 0 0">提交
+                        </button>
+                </div>
+
+            </div>
+            <!--批量操作 -->
+            <div class="col-md-11" style="position: relative;left: 50px">
+
+                {% csrf_token %}
+                {{ formset.management_form }}
+                <table class="datatable table table-striped" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th style="">姓名</th>
+                        <th style="">考勤</th>
+                        <th style="width: 80px">成绩</th>
+                        <th style="width: 400px">批语</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for form in formset %}
+                        <tr>
+                            {{ form.id }}
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ form.instance.student }}</td>
+                            <td>{{ form.instance.get_record }}</td>
+                            <td>{{ form.score }} </td>
+                            <td>{{ form.homework_note }}</td>
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </form>
+    </div>
+
+
+{% endblock content %}
+
+{% block js %}
+    <script>
+        $("input").css("width", "400px");
+    </script>
+
+{% endblock js %}

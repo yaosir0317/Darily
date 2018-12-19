@@ -1,0 +1,105 @@
+{#<!DOCTYPE html>#}
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <title>CRM系统</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="shortcut icon" type="text/css" href="/static/img/ooopic_1540555990.ico">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+</head>
+<body>
+<div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header ">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">YaoSir's CRM</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="">首页</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">菜单 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {% block menu %}
+                                <li><a href="">添加书籍</a></li>
+                                <li><a href="">添加作者</a></li>
+                                <li><a href="">添加出版社</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="">设置</a></li>
+                            {% endblock menu %}
+                        </ul>
+                    </li>
+                </ul>
+
+                <form class="navbar-form navbar-right before-login">
+                    <a href="{% url 'login' %}" class="btn btn-info">
+                        登录
+                    </a>
+                    <a href="{% url 'login' %}#toregister" style="font-size: 12px" class="">注册</a>
+                </form>
+
+                <ul class="nav navbar-nav navbar-right ready-in">
+                    <li><img style="height: 30px;margin-top: 10px;" class="img-circle" src="/static/img/timg.jpg"
+                             alt="头像"/></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{ request.user.username }}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">个人中心</a></li>
+                            <li><a href="">修改密码</a></li>
+                            <li><a href="#">设置</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{% url 'logout' %}">注销</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                </form>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    {% block content %}
+
+    {% endblock content%}
+</div>
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="/static/bootstrap/js/jquery.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="/static/bootstrap/js/bootstrap.js"></script>
+<script>
+    let False = false;
+    let True = true;
+    if ({{ request.user.is_authenticated }}) {
+        $('.before-login').css("display", "none");
+        $('.ready-in').css("display", "block");
+    } else {
+        console.log(1);
+        $('.before-login').css("display", "block");
+        $('.ready-in').css("display", "none");
+    }
+    $('.dropdown-toggle').dropdown();
+
+</script>
+
+
+{% block js %}
+
+{% endblock js %}
+</body>
+</html>

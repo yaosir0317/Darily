@@ -1,0 +1,77 @@
+{% extends 'base/site_base.html' %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="title">客户咨询列表</div>
+            </div>
+            <div class="pull-right">
+                {% load web %}
+                {% if "ConsultRecordsAdd"|has_permission:request %}
+                    <a href="{% url 'ConsultRecordsAdd' %}{{ next_path }}"
+                       class="btn btn-success pull-right active" style="margin: 0 20px 0 0">add
+                        consults</a>
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="datatable table table-striped" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>客户姓名</th>
+                    <th>当前状态</th>
+                    <th>内容</th>
+                    <th>销售</th>
+                    {% if "ConsultRecordsEdit"|has_permission:request %}
+                        <th>编辑</th>
+                    {% endif %}
+
+                    {% if "ConsultRecordsDelete"|has_permission:request %}
+                        <th>删除</th>
+                    {% endif %}
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for consult_record in consult_record_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ consult_record.customer.name }}</td>
+                        <td>{{ consult_record.customer.get_status }}</td>
+                        <td>{{ consult_record.note }}</td>
+                        <td>{{ consult_record.consultant|default:"暂无" }}</td>
+                        {% if "ConsultRecordsEdit"|has_permission:request %}
+                            <td>
+                                <a href="{% url 'ConsultRecordsEdit' consult_record.pk %}{{ next_path }}"
+                                   class="fa fa-edit" aria-hidden="true"
+                                   style="color:#FFC125;margin-right: 10px;font-size: 18px;position: relative;top: 4px"></a>
+                            </td>
+                        {% endif %}
+
+                        {% if "ConsultRecordsDelete"|has_permission:request %}
+                            <td>
+                                <a href="{% url 'ConsultRecordsDelete' consult_record.pk %}{{ next_path }}"
+                                   class="fa fa-trash-o fa-lg" aria-hidden="true"
+                                   style="color:#f00 ;line-height: 16px"></a>
+                            </td>
+                        {% endif %}
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+{% block js %}
+
+
+{% endblock js %}

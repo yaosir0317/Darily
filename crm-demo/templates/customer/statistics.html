@@ -1,0 +1,58 @@
+{% extends 'base/site_base.html' %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="title">Customer order statistics</div>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-link" href="?date=today" style="color: #FF3030">今天</a>
+                <a class="btn btn-link" href="?date=yesterday" style="color: #FF4500">昨天</a>
+                <a class="btn btn-link" href="?date=week" style="color: #FF7F50">最近一周</a>
+                <a class="btn btn-link" href="?date=recent_month" style="color: #FFB90F">最近一个月</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="datatable table table-striped" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>客户姓名</th>
+                    <th>性别</th>
+                    <th>客户来源</th>
+                    <th>销售</th>
+                    <th>报名日期</th>
+                    <th>所报班级</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for customer in customer_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ customer.name }}</td>
+                        <td>{{ customer.get_sex_display }}</td>
+                        <td>{{ customer.get_source_display }}</td>
+                        <td>{{ customer.consultant }}</td>
+                        <td>{{ customer.deal_date|date:"Y-m-d" }}</td>
+                        <td>{{ customer.get_classlist }}</td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+{% block js %}
+    <script>
+
+    </script>
+
+{% endblock js %}

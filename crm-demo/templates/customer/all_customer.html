@@ -1,0 +1,57 @@
+{% extends 'base/site_base.html' %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="title">全部客户</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="datatable table table-striped" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>客户姓名</th>
+                    <th>性别</th>
+                    <th>QQ</th>
+                    <th>手机号</th>
+                    <th>客户来源</th>
+                    <th>资讯日期</th>
+                    <th>当前状态</th>
+                    <th>销售</th>
+                    <th>所报班级</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for customer in cus_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ customer.name }}</td>
+                        <td>{{ customer.get_sex_display }}</td>
+                        <td>{{ customer.qq }}</td>
+                        <td>{{ customer.phone }}</td>
+                        <td>{{ customer.get_source_display }}</td>
+                        <td>{{ customer.date|date:'Y-m-d' }}</td>
+                        <td>{{ customer.get_status }}</td>
+                        <td>{{ customer.consultant|default:'暂无' }}</td>
+                        <td>{{ customer.get_classlist|default:'暂无' }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+{% block js %}
+    <script>
+
+    </script>
+
+{% endblock js %}

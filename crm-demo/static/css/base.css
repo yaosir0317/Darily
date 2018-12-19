@@ -1,0 +1,12 @@
+.before-login {
+    display: block;
+}
+
+.ready-in {
+    display: none;
+}
+
+.act {
+    background: RGB(40, 45, 50);
+    border-left: 2px solid #ff6700;
+}

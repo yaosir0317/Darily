@@ -1,0 +1,24 @@
+{% for item in permission_menu_dict.values %}
+    <li class="panel panel-default dropdown  {{ item.class }}">
+        <a data-toggle="collapse" href="#dropdown-{{ item.menu_title }}"  {{ item.cls }} class="{{ item.in }}">
+            <span class="icon {{ item.menu_icon }}"></span><span class="title">{{ item.menu_title }}</span>
+        </a>
+        <!-- Dropdown level 1 -->
+        <div id="dropdown-{{ item.menu_title }}" class="panel-collapse collapse {{ item.in }}" {{ item.cls }}>
+            <div class="panel-body" style="padding: 0">
+                <ul class="nav navbar-nav">
+                    {% for foo in item.children %}
+                        {% if foo.url == item.url %}
+                            <li style="background: RGB(40, 45, 50);border-left: 3px solid #ff6700;">
+                                <a href="{{ foo.url }}">{{ foo.title }}</a>
+                            </li>
+                        {% else %}
+                            <li style="background: rgba(53,51,71,0.2)"><a href="{{ foo.url }}">{{ foo.title }}</a></li>
+                        {% endif %}
+
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </li>
+{% endfor %}
