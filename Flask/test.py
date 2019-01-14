@@ -6,7 +6,7 @@ def outer(fun):
         start = time.time()
         ret = fun(*args, **kwargs)
         end = time.time()
-        print(end - start)
+        print(start, end, end - start)
         return ret
     return inner
 
@@ -87,21 +87,70 @@ def quicksort(list):
 # print(obj.reverse(1534236469))
 
 
-class Solution:
-    def isPalindrome(self, x):
-        """
-        :type x: int
-        :rtype: bool
-        """
-        if x < 0 or (x != 0 and x % 10 == 0):
-            return False
+# class Solution:
+#     def isPalindrome(self, x):
+#         """
+#         :type x: int
+#         :rtype: bool
+#         """
+#         if x < 0 or (x != 0 and x % 10 == 0):
+#             return False
+#
+#         half = 0
+#         while half < x:
+#             half = half*10 + x % 10
+#             x //= 10
+#         return x == half or x == half//10
+#
+#
+# obj = Solution()
+# print(obj.isPalindrome(1211121))
 
-        half = 0
-        while half < x:
-            half = half*10 + x % 10
-            x //= 10
-        return x == half or x == half//10
+
+# 1 1 2 3 4 7 11 18 29
+# @outer
+# def fib(n):
+#     f1 = f2 = 1
+#     for i in range(2, n):
+#         f1, f2 = f2, (f2 + f1)
+#     return f2
+#
+#
+# def fib_n(n):
+#     if n <= 2:
+#         return 1
+#     return fib_n(n-1) + fib_n(n-2)
+#
+#
+# print(fib(37))
+# print(fib_n(37))
+@outer
+def test1(n):
+    lst = []
+    for i in range(10000*n):
+        lst = lst + [i]
+    return lst
 
 
-obj = Solution()
-print(obj.isPalindrome(1211121))
+@outer
+def test2(n):
+    lst = []
+    for i in range(10000*n):
+        lst.append(i)
+    return lst
+
+
+@outer
+def test3(n):
+    return [i for i in range(10000*n)]
+
+
+@outer
+def test4(n):
+    return list(range(10000*n))
+
+
+# test1(10)
+# test2(1000)
+# test3(1000)
+# test4(1000)
