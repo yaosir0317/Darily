@@ -39,10 +39,10 @@ def fetch_all(my_sql, args):
     return res
 
 
-sql = "insert into users(name,age) VALUES (%s, %s)"
-
-insert(sql ("yao", 9))
-
-# sql = "select * from users where name=%s and age=%s"
+# sql = "insert into users(name,age) VALUES (%s, %s)"
 #
-# print(fetch_one(sql, ("yao", 9)))
+# insert(sql, ("yao", 9))
+
+sql = "select * from users where name=%s and age=%s"
+
+print(fetch_one(sql, ("yao", 9)))

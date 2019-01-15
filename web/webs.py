@@ -1,9 +1,9 @@
 import pymysql
 
-from DBUtils.PooledDB import PooledDB
+from DBUtils import PooledDB
 
 
-POOL = PooledDB(
+POOL = PooledDB.PooledDB(
     creator=pymysql,  # 使用链接数据库的模块
     maxconnections=6,  # 连接池允许的最大连接数，0和None表示不限制连接数
     mincached=2,  # 初始化时，链接池中至少创建的空闲的链接，0表示不创建
