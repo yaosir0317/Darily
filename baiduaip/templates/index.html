@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/bootstrap.css">
+    <title>Title</title>
+</head>
+<body>
+<audio controls autoplay id="player"></audio>
+<p>
+    <button onclick="start_reco()" class="btn btn-lg btn-warning">录制语音指令</button>
+</p>
+<p>
+    <button onclick="stop_reco_audio()" class="btn btn-lg btn-success">发送语音指令</button>
+</p>
+</body>
+<!--<script type="application/javascript" src="/static/Recorder.js"></script>-->
+<script type="application/javascript" src="https://cdn.bootcss.com/recorderjs/0.1.0/recorder.js"></script>
+<script type="text/javascript" src="/static/jQuery3.1.1.js"></script>
+
+<script type="text/javascript">
+    var reco = null;
+    var audio_context = new AudioContext();
+    navigator.getUserMedia = (navigator.getUserMedia ||
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia);
+
+    navigator.getUserMedia({audio: true}, create_stream, function (err) {
+        console.log(err)
+    });
+
+    function create_stream(user_media) {
+        var stream_input = audio_context.createMediaStreamSource(user_media);
+        reco = new Recorder(stream_input);
+    }
+
+    function start_reco() {
+        reco.record();
+    }
+
+
+    function stop_reco_audio() {
+        reco.stop();
+        send_audio();
+        reco.clear();
+    }
+
+
+    function send_audio() {
+        reco.exportWAV(function (wav_file) {
+            var formdata = new FormData();
+            formdata.append("record", wav_file);
+            console.log(formdata);
+            $.ajax({
+                url: "http://127.0.0.1:9527/ai",
+                type: 'post',
+                processData: false,
+                contentType: false,
+                data: formdata,
+                dataType: 'json',
+                success: function (data) {
+                    document.getElementById("player").src ="http://127.0.0.1:9527/get_audio/audio.mp3"
+                }
+            });
+
+        })
+    }
+
+
+
+</script>
+</html>

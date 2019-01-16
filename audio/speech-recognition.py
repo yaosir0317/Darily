@@ -23,4 +23,3 @@ def get_file_content(filePath):
 
 res = npl.simnet("中国队,大败美国队", "中国队大败,美国队")
 print(res)
- 
