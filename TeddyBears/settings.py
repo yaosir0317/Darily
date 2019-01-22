@@ -20,3 +20,13 @@ RESULT = {
 MUSIC_PATH = "music"
 # 图像路径
 IMG_PATH = "img"
+# 语音路径
+CHAT_PATH = "chat"
+
+BASE_URL = "http://192.168.13.28"
+BASE_WS = "ws://192.168.13.28"
+
+QR_PATH = "QRcode"
+
+# 联图api
+LT_URL = "http://qr.liantu.com/api.php?text=%s"

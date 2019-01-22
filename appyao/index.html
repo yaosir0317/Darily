@@ -7,158 +7,108 @@
 		<title></title>
 		<script src="js/mui.min.js"></script>
 		<link href="css/mui.min.css" rel="stylesheet" />
-		<script type="text/javascript" charset="utf-8">
-			mui.init();
-		</script>
+
 	</head>
 
 	<body>
-
-		<!-- 缩放式侧滑（类手机QQ） -->
-		<!-- 侧滑导航根容器 -->
-		<div class="mui-off-canvas-wrap mui-draggable mui-scalable">
-			<!-- 菜单容器 -->
-			<aside class="mui-off-canvas-left mui-transitioning" id="offCanvasSide">
-				<div class="mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<!-- 菜单具体展示内容 -->
-						<ul class="mui-table-view">
-							<li class="mui-table-view-cell mui-table-view-radio">
-								<a class="mui-navigate-right">Item 1</a>
-							</li>
-							<li class="mui-table-view-cell mui-table-view-radio">
-								<a class="mui-navigate-right">Item 2</a>
-							</li>
-							<li class="mui-table-view-cell mui-table-view-radio">
-								<a class="mui-navigate-right">Item 3</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</aside>
-			<!-- 主页面容器 -->
-			<div class="mui-inner-wrap mui-transitioning">
-				<!-- 主页面标题 -->
-				<header class="mui-bar mui-bar-nav">
-					<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left" href="#offCanvasSide"></a>
-					<h1 class="mui-title">标题</h1>
-				</header>
-				<nav class="mui-bar mui-bar-tab">
-					<a class="mui-tab-item mui-active" id="home">
-						<span class="mui-icon mui-icon-home"></span>
-						<span class="mui-tab-label">首页</span>
-					</a>
-					<a class="mui-tab-item id">
-						<span class="mui-icon mui-icon-phone"></span>
-						<span class="mui-tab-label">电话</span>
-					</a>
-					<a class="mui-tab-item id">
-						<span class="mui-icon mui-icon-email"></span>
-						<span class="mui-tab-label">邮件</span>
-					</a>
-					<a class="mui-tab-item id">
-						<span class="mui-icon mui-icon-gear"></span>
-						<span class="mui-tab-label">设置</span>
-					</a>
-				</nav>
-				<div class="mui-content mui-scroll-wrapper">
-					<div class="mui-scroll">
-						<!-- 主界面具体展示内容 -->
-						<div class="mui-content">
-							<div class="mui-slider">
-								<!--轮播-->
-								<div class="mui-slider-group">
-									<!--第一个内容区容器-->
-									<div class="mui-slider-item">
-										<img src="./img/15.jpg" alt="" />
-									</div>
-									<!--第二个内容区-->
-									<div class="mui-slider-item">
-										<img src="./img/16.jpg" alt="" />
-									</div>
-									
-								</div>
-							</div>
-							<!--九宫格-->
-							<ul class="mui-table-view mui-grid-view mui-grid-9">
-								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-									<a href="#">
-										<span class="mui-icon mui-icon-home"></span>
-										<div class="mui-media-body">Home</div>
-									</a>
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-									<a href="#">
-										<span class="mui-icon mui-icon-email"><span class="mui-badge mui-badge-red">5</span></span>
-										<div class="mui-media-body">Email</div>
-									</a>
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-									<a href="#">
-										<span class="mui-icon mui-icon-chatbubble"></span>
-										<div class="mui-media-body">Chat</div>
-									</a>
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-									<a href="#">
-										<span class="mui-icon mui-icon-location"></span>
-										<div class="mui-media-body">Location</div>
-									</a>
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-									<a href="#">
-										<span class="mui-icon mui-icon-search"></span>
-										<div class="mui-media-body">Search</div>
-									</a>
-								</li>
-								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-									<a href="#">
-										<span class="mui-icon mui-icon-phone"></span>
-										<div class="mui-media-body">Phone</div>
-									</a>
-								</li>
-							</ul>
-							<!--图文列表-->
-							<ul class="mui-table-view">
-								<li class="mui-table-view-cell mui-media">
-									<a href="javascript:;">
-										<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-										<div class="mui-media-body">
-											幸福
-											<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-										</div>
-									</a>
-								</li>
-								<li class="mui-table-view-cell mui-media">
-									<a href="javascript:;">
-										<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-										<div class="mui-media-body">
-											木屋
-											<p class="mui-ellipsis">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
-										</div>
-									</a>
-								</li>
-								<li class="mui-table-view-cell mui-media">
-									<a href="javascript:;">
-										<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">
-										<div class="mui-media-body">
-											CBD
-											<p class="mui-ellipsis">烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-										</div>
-									</a>
-								</li>
-							</ul>
-						</div>
-
-					</div>
-				</div>
-				<div class="mui-off-canvas-backdrop"></div>
-			</div>
-		</div>
-		<script>
-			document.getElementById('home').addEventListener('tap',function () {
-			        mui.toast("hello")
-			})
-		</script>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" id="index">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon mui-icon-phone" id="friend_list"></span>
+				<span class="mui-tab-label">消息</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">邮件</span>
+			</a>
+			<a class="mui-tab-item" id="self">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">个人中心</span>
+			</a>
+		</nav>
 	</body>
+	<script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		mui.init({
+			subpages: [{
+				url: "main.html",
+				id: "main.html",
+				styles: {
+					top: "0",
+					bottom: "50px"
+				},
+			}]
+		});
+
+		var ws = null;
+
+		if(window.localStorage.getItem("user")) {
+			ws = new WebSocket(window.ws_serv + "/app/" + window.localStorage.getItem("user"));
+		};
+
+		document.addEventListener("new_ws", function() {
+			ws = new WebSocket(window.ws_serv + "/app/" + window.localStorage.getItem("user"));
+		});
+		
+		document.getElementById('self').addEventListener('tap', function() {
+			if(window.localStorage.getItem("user")) {
+				mui.post(window.serv + '/auto_login', {
+					"_id": window.localStorage.getItem("user")
+				}, function(data) {
+					console.log(JSON.stringify(data));
+					mui.openWindow({
+						url: "userinfo.html",
+						id: "userinfo.html",
+						styles: {
+							top: "0px",
+							bottom: "50px"
+						},
+						extras: data.data
+					})
+				}, 'json');
+
+			} else {
+				mui.openWindow({
+					url: "login.html",
+					id: "login.html",
+					styles: {
+						top: "0px",
+						bottom: "50px"
+					}
+
+				})
+			}
+
+		});
+		
+		document.getElementById('index').addEventListener('tap', function() {
+			mui.openWindow({
+				url: "main.html",
+				id: "main.html",
+				styles: {
+					top: "0px",
+					bottom: "50px"
+				}
+
+			})
+		});
+		
+		document.getElementById('friend_list').addEventListener('tap',function () {
+		    mui.openWindow({
+				url: "friend_list.html",
+				id: "friend_list.html",
+				styles: {
+					top: "0px",
+					bottom: "50px"
+				}
+
+			}) 
+		})
+		
+		
+	</script>
+
 </html>

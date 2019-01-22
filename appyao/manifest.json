@@ -125,5 +125,93 @@
 				}
 			}
 		}
+	},
+	"dependencies": {
+		"pages": {
+			"index.html": {
+				"resources": [
+					"main.html"
+				],
+				"refer": [
+					"login.html",
+					"userinfo.html",
+					"friend_list.html"
+				],
+				"priority": 0
+			},
+			"main.html": {
+				"resources": [],
+				"refer": [
+					"player.html"
+				],
+				"priority": 0
+			},
+			"login.html": {
+				"resources": [
+					"js/md5.js"
+				],
+				"refer": [
+					"reg.html",
+					"userinfo.html"
+				],
+				"priority": 0
+			},
+			"reg.html": {
+				"resources": [
+					"js/md5.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"userinfo.html": {
+				"resources": [],
+				"refer": [
+					"scanQR.html",
+					"toy_manager.html"
+				],
+				"priority": 0
+			},
+			"scanQR.html": {
+				"resources": [],
+				"refer": [
+					"bind_toy.html"
+				],
+				"priority": 0
+			},
+			"bind_toy.html": {
+				"resources": [],
+				"refer": [
+					"toy_manager.html"
+				],
+				"priority": 0
+			},
+			"toy_manager.html": {
+				"resources": [],
+				"refer": [
+					"scanQR.html"
+				],
+				"priority": 0
+			},
+			"friend_list.html": {
+				"resources": [],
+				"refer": [
+					"chat.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"img/18.jpg",
+				"js/mui.min.js",
+				"img/15.jpg",
+				"fonts/mui.ttf",
+				"css/mui.min.css",
+				"js/mui.js",
+				"img/16.jpg",
+				"css/mui.css",
+				"img/17.jpg"
+			]
+		}
 	}
 }

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="css/chat.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title"></h1>
+		</header>
+		<div class="mui-content">
+			<div class="leftd">
+				<span class="leftd_h">
+        		<img src="avatar/toy.jpg" />
+        	</span>
+				<div class="left speech">
+					点击播放消息
+				</div>
+			</div>
+			<div class="rightd">
+				<span class="rightd_h">
+        		<img src="avatar/toy.jpg" />
+        	</span>
+				<div class="right speech">
+					点击播放消息
+				</div>
+			</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" id="talk">
+				<span class="mui-icon mui-icon-speech"></span>
+				<span class="mui-tab-label">按住说话</span>
+			</a>
+		</nav>
+
+	</body>
+	<script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		mui.init({
+			gestureConfig: {
+				doubletap: false, //默认为false
+				longtap: false, //默认为false
+				swipe: false, //默认为true
+				drag: false, //默认为true
+				hold: true, //默认为false，不监听
+				release: true //默认为false，不监听
+			}
+		});
+		mui.plusReady(function() {
+			Sdata = plus.webview.currentWebview();
+        	document.getElementById("title").innerText = Sdata.friend_nick; 
+		});
+		
+		
+		var reco = null;
+		document.getElementById('talk').addEventListener('hold', function() {
+			reco = plus.audio.getRecorder();
+			reco.record({
+				filename: "_doc/audio/",
+				format: "amr"
+			}, function(path) {
+				console.log(path);
+				createUpload(path);
+			});
+		})
+
+		document.getElementById('talk').addEventListener('release', function() {
+			reco.stop();
+		})
+
+		function createUpload(path) {
+			var task = plus.uploader.createUpload(window.serv + "/uploader", {
+					method: "POST"
+				},
+				function(t, status) {
+					// 上传完成
+					if(status == 200) {
+						alert("Upload success: " + t.url);
+					} else {
+						alert("Upload failed: " + status);
+					}
+				} 
+			);
+			task.addFile(path, {
+				key: "recorder"
+			});
+			task.addData("key", "value");
+		
+			task.start();
+		}
+	</script>
+
+</html>

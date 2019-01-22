@@ -7,6 +7,12 @@
  * MUI核心JS
  * @type _L4.$|Function
  */
+window.serv = "http://192.168.13.28:9527";
+window.ws_serv = "ws://192.168.13.28:3721";
+window.serv_image = window.serv + "/img/";
+window.serv_music = window.serv + "/music/";
+
+
 var mui = (function(document, undefined) {
 	var readyRE = /complete|loaded|interactive/;
 	var idSelectorRE = /^#([\w-]+)$/;

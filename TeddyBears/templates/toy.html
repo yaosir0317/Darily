@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <audio autoplay controls id="player"></audio>
+</body>
+<script type="application/javascript">
+  let ws = new WebSocket("ws://192.168.13.28:3721/app/app01");
+  ws.onmessage = function (data) {
+    console.log(data.data);
+    let msg = JSON.parse(data.data);
+    document.getElementById("player").src = "http://192.168.13.28:9527/music/"+msg.music;
+  }
+</script>
+</html>
