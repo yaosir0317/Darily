@@ -22,6 +22,7 @@
 	<script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		mui.init();
+//		通过user_id获取好友列表(绑定的玩具)
 		mui.plusReady(function() {
 			mui.post(window.serv + '/friendList', {
 				user_id: window.localStorage.getItem("user")
@@ -32,7 +33,8 @@
 			}, 'json');
 		});
 		
-		 
+		
+//		创建好友列表标签函数
 		function create_item(content){         
           var li = document.createElement("li");
           li.className ="mui-table-view-cell mui-media";

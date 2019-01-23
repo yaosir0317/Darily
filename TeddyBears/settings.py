@@ -1,6 +1,3 @@
-import os
-
-
 from pymongo import MongoClient
 
 
@@ -23,9 +20,10 @@ IMG_PATH = "img"
 # 语音路径
 CHAT_PATH = "chat"
 
-BASE_URL = "http://192.168.13.28"
-BASE_WS = "ws://192.168.13.28"
+BASE_URL = "http://192.168.13.102"
+BASE_WS = "ws://192.168.13.102"
 
+# 二维码路径
 QR_PATH = "QRcode"
 
 # 联图api

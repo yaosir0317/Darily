@@ -10,6 +10,7 @@ from settings import RESULT
 devices = Blueprint("devices", __name__)
 
 
+# 玩具是否授权
 @devices.route("/validateCode", methods=["POST"])
 def validate_code():
     code = request.form.to_dict()  # device_key
@@ -28,6 +29,7 @@ def validate_code():
     return jsonify(RESULT)
 
 
+# 玩具绑定
 @devices.route("/bindToy", methods=["POST"])
 def bind_toy():
     # toys.bind_user = "user_id"
@@ -35,12 +37,15 @@ def bind_toy():
     # 1.device_key 2.fromdata 3. who bind toy
     toy_info = request.form.to_dict()
 
+    # 创建聊天窗口
     chat_window = Mongo_DB.chats.insert_one({"user_list": [], "chat_list": []})
 
+    # 通过user_id去查询用户信息 谁绑定玩具
     user_info = Mongo_DB.users.find_one({"_id": ObjectId(toy_info["user_id"])})
 
     toy_info["bind_user"] = toy_info.pop("user_id")
     toy_info["avatar"] = "toy.png"
+    # 自然逻辑 好友关系
     toy_info["friend_list"] = [
         {
             "friend_id": toy_info["bind_user"],
@@ -54,6 +59,7 @@ def bind_toy():
 
     toy = Mongo_DB.toys.insert_one(toy_info)
 
+    # 用户添加绑定玩具 及 自然逻辑 好友关系
     user_info["bind_toy"].append(str(toy.inserted_id))
     user_add_toy = {
         "friend_id": str(toy.inserted_id),
@@ -78,6 +84,7 @@ def bind_toy():
     return jsonify(RESULT)
 
 
+# 通过user_id获取绑定的玩具
 @devices.route("/toyList", methods=["POST"])
 def toy_list():
     # bind_toy : [Obj("toy_id"),"toy_id2"]
@@ -99,3 +106,16 @@ def toy_list():
     RESULT["data"] = toy_l
 
     return jsonify(RESULT)
+
+
+@devices.route("/device_login", methods=["POST"])
+def device_login():
+    dev_info = request.form.to_dict()
+    dev = Mongo_DB.devices.find_one(dev_info)
+    if dev:
+        toy = Mongo_DB.toys.find_one(dev_info)
+        if toy:
+            return jsonify({"music": "欢迎来到智能亲子互动乐园", "info": str(toy.get("_id"))})
+        return jsonify({"info": "请对我进行绑定后再玩耍"})
+    else:
+        return jsonify({"info": "请联系玩具经销商"})

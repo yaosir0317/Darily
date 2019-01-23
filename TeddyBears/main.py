@@ -7,7 +7,7 @@ from server.userinfo import users
 from server.devices import devices
 from server.friends import friends
 
-api = Flask(__name__, template_folder="templates")
+api = Flask(__name__, template_folder="templates", static_url_path="/static")
 
 api.register_blueprint(app_content)
 api.register_blueprint(app_anything)

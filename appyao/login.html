@@ -36,14 +36,14 @@
 		mui.back = function(){
 			mui.toast("当前页面不能返回");
 		};
-		
+//		跳转注册界面
 		document.getElementById('reg_btn').addEventListener('tap',function () {
 		      mui.openWindow({
 		      	url:"reg.html",
 		      	id:"reg.html",
 		      })
 		})
-		
+//		登录验证及跳转个人信息界面
 		document.getElementById('login_btn').addEventListener('tap',function () {
 		      mui.post(window.serv + '/login',{
 		      		username:document.getElementById("username").value,
@@ -61,7 +61,7 @@
 		      					bottom:"50px"
 		      				},
 		      				extras:data.data,
-		      				createNew:true
+		      				createNew:true  //创建新界面
 		      			})
 		      		}	      		
 		      	},'json'

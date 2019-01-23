@@ -11,9 +11,10 @@ from settings import RESULT
 friends = Blueprint("friends", __name__)
 
 
+# 通过user_id获取其好友列表,绑定的玩具
 @friends.route("/friendList", methods=["POST"])
 def friend_list():
-    user_id = ObjectId(request.form.get("user_id"))
+    user_id = ObjectId(request.form.get("user_id"))  # 字符串user_id转objectId
     user_info = Mongo_DB.users.find_one({"_id": user_id})
 
     RESULT["error_not"] = 0

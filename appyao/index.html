@@ -32,6 +32,7 @@
 	</body>
 	<script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
+//		首页内容放于main.html
 		mui.init({
 			subpages: [{
 				url: "main.html",
@@ -45,17 +46,44 @@
 
 		var ws = null;
 
+		function ws_onmessage(data){
+			var msg = JSON.parse(data.data);
+			var player = plus.audio.createPlayer(window.serv_chat + data.data.filename);
+			player.play();
+		}
+		
 		if(window.localStorage.getItem("user")) {
-			ws = new WebSocket(window.ws_serv + "/app/" + window.localStorage.getItem("user"));
+			ws = new WebSocket(window.ws_serv + window.localStorage.getItem("user"));
+			ws.onmessage = function(data){ 
+				console.log(data.data); 
+				var msg = JSON.parse(data.data);
+//				var player = plus.audio.createPlayer(window.serv_chat + msg.filename);
+//				player.play();
+				var chat = plus.webview.getWebviewById("chat.html");
+				mui.fire(chat,'add_chat',msg)
+			}
 		};
-
-		document.addEventListener("new_ws", function() {
-			ws = new WebSocket(window.ws_serv + "/app/" + window.localStorage.getItem("user"));
+		
+		document.addEventListener("send_music", function(data) {
+			var send_str = data.detail // {to_user:"toy123",music:Sdata.audio}
+			ws.send(JSON.stringify(send_str));
 		});
 		
+		document.addEventListener("send_str", function(data) {  
+			var send_str = data.detail // {to_user:"toy123",chat:"123123123.amr.mp3"}
+			ws.send(JSON.stringify(send_str));
+		}); 
+		 
+		document.addEventListener("new_ws",function(){
+			ws = new WebSocket(window.serv_ws  + window.localStorage.getItem("user"));
+			ws.onmessage = ws_onmessage;
+		})
+		
+//		个人中心绑定点击事件
 		document.getElementById('self').addEventListener('tap', function() {
+//			获取到已经登录人,展示用户信息界面
 			if(window.localStorage.getItem("user")) {
-				mui.post(window.serv + '/auto_login', {
+				mui.post(window.serv + '/autoLogin', {
 					"_id": window.localStorage.getItem("user")
 				}, function(data) {
 					console.log(JSON.stringify(data));
@@ -69,7 +97,7 @@
 						extras: data.data
 					})
 				}, 'json');
-
+//			打开登录界面
 			} else {
 				mui.openWindow({
 					url: "login.html",
@@ -83,7 +111,7 @@
 			}
 
 		});
-		
+//		首页点击事件
 		document.getElementById('index').addEventListener('tap', function() {
 			mui.openWindow({
 				url: "main.html",
@@ -95,7 +123,7 @@
 
 			})
 		});
-		
+//		消息点击事件
 		document.getElementById('friend_list').addEventListener('tap',function () {
 		    mui.openWindow({
 				url: "friend_list.html",

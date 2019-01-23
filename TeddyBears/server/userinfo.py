@@ -8,6 +8,7 @@ from bson import ObjectId
 users = Blueprint("users", __name__)
 
 
+# 注册api
 @users.route("/reg", methods=["POST"])
 def reg():
     user_info = request.form.to_dict()
@@ -26,6 +27,7 @@ def reg():
     return jsonify(RESULT)
 
 
+# 登录api
 @users.route("/login", methods=["POST"])
 def login():
     user_info = request.form.to_dict()
@@ -43,7 +45,8 @@ def login():
     return jsonify(RESULT)
 
 
-@users.route("/auto_login", methods=["POST"])
+# 前端检测到用户登录后,获取用户数据
+@users.route("/autoLogin", methods=["POST"])
 def auto_login():
     user_id = request.form.to_dict()
     user_id["_id"] = ObjectId(user_id.get("_id"))

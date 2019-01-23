@@ -40,7 +40,7 @@
 		mui.init();
 		var Sdata = null;
 		mui.plusReady(function() {
-			Sdata = plus.webview.currentWebview();
+			Sdata = plus.webview.currentWebview(); // 接收数据
 		})
 		document.getElementById('bind_btn').addEventListener('tap', function() {
 			mui.post(window.serv + '/bindToy', {
@@ -52,7 +52,7 @@
 				remark: document.getElementById("remark").value,
 				//3.user_id
 				user_id: window.localStorage.getItem("user")
-
+//			跳转玩具管理界面
 			}, function(data) {
 				if(data.error_not == 0) {
 					mui.openWindow({

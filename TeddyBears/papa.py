@@ -1,16 +1,80 @@
-import requests
+import time
 
 
-def pa():
-    get_content = requests.get("http://36.7.87.209:8088/online/roomResource.xp?action=showResource")
+def outer(func):
+    def inner(*args, **kwargs):
+        start = time.time()
+        ret = func(*args, **kwargs)
+        end = time.time()
+        print(end-start)
+        return ret
+    return inner
 
 
-print(pa())
-# 生命之息 100
-# 蓝色小 20
-# 下级  30
+@outer
+def cal(n):
+    for i in range(1000**2*n):
+        continue
+    return 123
 
 
-# 精神 = 生命之息*10 + 蓝色魔力*10 = 7000
-# 蓝色魔力 = 魔力结晶*1 + 蓝色小*10 = 600
-# 魔力结晶 = 生命之息*1 + 下级*10  = 400
+class A(object):
+
+    def __init__(self, num):
+        self.num = num
+
+    def func(self):
+        print(self.num)
+
+
+class B(A):
+
+    def __func2(self):
+        print(self.num, 123)
+
+    def func3(self):
+        self.__func2()
+
+    def func4(self):
+        self.func()
+
+
+class Animal(object):
+    def __init__(self, name):
+        self.name = name
+
+    def eating(self):
+        print(self.name + "can eating")
+
+    def drinking(self):
+        print(self.name + "can drinking")
+
+
+class Cat(Animal):
+    def cat_sound(self):
+        print("喵")
+
+
+class Dog(Animal):
+    def dog_sound(self):
+        print("汪")
+
+
+class Foo(object):
+
+    def get_bar(self):
+        print('属性')
+
+    # *必须两个参数
+    def set_bar(self, value):
+        print('set value' + value)
+
+    def del_bar(self):
+        print('property')
+
+    BAR = property(get_bar, set_bar, del_bar, '131313')
+
+obj = Foo()
+
+
+print(Foo.BAR.__doc__)
