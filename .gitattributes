@@ -1,5 +1,5 @@
 ﻿*.html linguist-language=Django；
-*.css linguist-language=Flask；
-*.js linguist-language=Html；
+*.css linguist-language=Django；
+*.js linguist-language=Django；
 
 
