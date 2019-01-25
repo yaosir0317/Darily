@@ -43,7 +43,13 @@
 					mui.toast(data.msg);
 					mui.back();
 				}else if(data.error_not==1){
-					//神秘代码
+					//添加好友！
+					console.log(JSON.stringify(data.data));
+					mui.openWindow({
+						url:"add_req.html",
+						id:"add_req.html",
+						extras:{type:Sdata.type,toy_id:Sdata.toy_id,friend_id:data.data._id}
+					})
 				}
 			},'json'
 		);

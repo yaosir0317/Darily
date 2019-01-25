@@ -7,8 +7,8 @@
  * MUI核心JS
  * @type _L4.$|Function
  */
-window.serv = "http://192.168.13.102:9527";
-window.ws_serv = "ws://192.168.13.102:3721/app/";
+window.serv = "http://192.168.13.204:9527";
+window.ws_serv = "ws://192.168.13.204:3721/app/";
 window.serv_image = window.serv + "/img/";
 window.serv_music = window.serv + "/music/";
 window.serv_chat = window.serv + "/chat/";

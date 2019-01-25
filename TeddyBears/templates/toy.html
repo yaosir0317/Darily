@@ -1,108 +1,165 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <p>DeviceKey:<input type="text" id="device_key">
-    <button onclick="open_toy()">开启玩具</button>
+  <button onclick="open_toy()">开启玩具</button>
 </p>
 <audio autoplay controls id="player"></audio>
 <p>消息来自:<span id="from_user"></span></p>
 <p>
-    <button onclick="start_reco()" style="background-color: yellow">录制语音指令</button>
-    <button onclick="stop_reco_audio()" style="background-color: blue">发送语音指令</button>
+  <button onclick="start_reco()" style="background-color: #0067ff">录制声音</button>
+  <button onclick="stop_reco_audio()" style="background-color: #ff6700">发送消息</button>
 </p>
+<p><button onclick="reco_ai()" style="background-color: #ff0067">发送语音指令</button></p>
+<p><button onclick="recv_msg()" style="background-color: #00ff67">收取消息</button></p>
 
 
 </body>
-<script type="application/javascript" src="/static/Recorder.js"></script>
-<script type="application/javascript" src="/static/jQuery3.1.1.js"></script>
-
+<script type="application/javascript" src="https://cdn.bootcss.com/recorderjs/0.1.0/recorder.js"></script>
+<script type="text/javascript" src="/static/jQuery3.1.1.js"></script>
 <script type="application/javascript">
-    let serv = "http://192.168.13.102:9527";
-    let serv_ws = "ws://192.168.13.102:3721/toy/";
-    let ws = null;
-    let toy_id = null;
+  var serv = "http://192.168.13.204:9527";
+  var serv_ws = "ws://192.168.13.204:3721/toy/";
+  var ws = null;
+  var toy_id = null;
 
-    function open_toy() {
-        var device_key = document.getElementById("device_key").value;
-        $.post(serv + "/device_login", {device_key: device_key}, function (data) {
-            console.log(data);
-            //alert(data.info);
-            toy_id = data.info;
-            ws = new WebSocket(serv_ws + toy_id);
-            ws.onmessage = function (data) {
-                console.log(data.data);
-                var msg = JSON.parse(data.data);
-                console.log(msg);
-                if (msg.music) {
-                    document.getElementById("player").src = serv + "/music/" + msg.music;
-                } else {
-                    document.getElementById("player").src = serv + "/chat/" + msg.chat;
-                    document.getElementById("from_user").innerText = msg.from_user;
-                }
-            }
-        }, "json")
-    }
+  function open_toy() {
+    var device_key = document.getElementById("device_key").value;
+    $.post(serv + "/device_login", {device_key: device_key}, function (data) {
+      console.log(data);
+      document.getElementById("player").src = serv + "/music/" + data.music;
+      //alert(data.info);
+      toy_id= data.info;
+      ws = new WebSocket(serv_ws + toy_id);
+      ws.onmessage = function (data) {
+        console.log(data.data);
+        var msg = JSON.parse(data.data);
+        if (msg.music) {
+          document.getElementById("player").src = serv + "/music/" + msg.music;
+        } else {
+          document.getElementById("player").src = serv + "/chat/" + msg.chat;
+          document.getElementById("from_user").innerText = msg.from_user;
+        }
+      }
+    }, "json")
+  }
 
-    let reco = null;
-    let audio_context = new AudioContext();
-    navigator.getUserMedia = (navigator.getUserMedia ||
-        navigator.webkitGetUserMedia ||
-        navigator.mozGetUserMedia ||
-        navigator.msGetUserMedia);
+  function recv_msg() {
+    $.post(serv + "/recv_msg",{
+      to_user:toy_id,
+      from_user:document.getElementById("from_user").innerText
+    },function (data) {
+      console.log(data);
+      var player = document.getElementById("player");
 
-    navigator.getUserMedia({audio: true}, create_stream, function (err) {
-        console.log(err)
-    });
-
-    function create_stream(user_media) {
-        var stream_input = audio_context.createMediaStreamSource(user_media);
-        reco = new Recorder(stream_input);
-    }
-
-    function start_reco() {
-        reco.record();
-    }
+      player.src = serv + "/chat/" +  data.shift().msg;
+      player.onended = function () {
+        if(data.length == 0){
+          return
+        }
+        player.src = serv + "/chat/" +  data.shift().msg;
+      }
+    },"json")
+  }
 
 
-    function stop_reco_audio() {
-        reco.stop();
-        send_audio();
-        reco.clear();
-    }
+  var reco = null;
+  var audio_context = new AudioContext();
+  navigator.getUserMedia = (navigator.getUserMedia ||
+    navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia ||
+    navigator.msGetUserMedia);
+
+  navigator.getUserMedia({audio: true}, create_stream, function (err) {
+    console.log(err)
+  });
+
+  function create_stream(user_media) {
+    var stream_input = audio_context.createMediaStreamSource(user_media);
+    reco = new Recorder(stream_input);
+  }
+
+  function start_reco() {
+    reco.record();
+  }
 
 
-    function send_audio() {
-        reco.exportWAV(function (wav_file) {
-            var formdata = new FormData();
-            formdata.append("record", wav_file);
-            console.log(formdata);
-            $.ajax({
-                url: serv + "/toy_uploader",
-                type: 'post',
-                processData: false,
-                contentType: false,
-                data: formdata,
-                dataType: 'json',
-                success: function (data) {
-                    if (data.code == 0) {
-                        let send_str = {
-                            "to_user": document.getElementById("from_user").innerText,
-                            "from_user": toy_id,
-                            "filename": data.filename
-                        };
-                        let send_json = JSON.stringify(send_str);
-                        ws.send(send_json);
-                    }
-                }
-            });
+  function stop_reco_audio() {
+    reco.stop();
+    send_audio();
+    reco.clear();
+  }
 
-        })
-    }
+  function reco_ai() {
+    reco.stop();
+    send_ai();
+    reco.clear();
+  }
+
+
+  function send_audio() {
+    reco.exportWAV(function (wav_file) {
+      var formdata = new FormData();
+      formdata.append("record", wav_file);
+      formdata.append("to_user",document.getElementById("from_user").innerText);
+      formdata.append("from_user",toy_id);
+      console.log(formdata);
+      $.ajax({
+        url: serv + "/toy_uploader",
+        type: 'post',
+        processData: false,
+        contentType: false,
+        data: formdata,
+        dataType: 'json',
+        success: function (data) {
+          if(data.code == 0){
+            var send_str = {
+              "to_user":document.getElementById("from_user").innerText,
+              "from_user":toy_id,
+              "filename":data.filename
+            };
+            var send_json = JSON.stringify(send_str);
+            ws.send(send_json);
+          }
+        }
+      });
+
+    })
+  }
+
+  function send_ai() {
+    reco.exportWAV(function (wav_file) {
+      var formdata = new FormData();
+      formdata.append("record", wav_file);
+      formdata.append("to_user",document.getElementById("from_user").innerText);
+      formdata.append("from_user",toy_id);
+      console.log(formdata);
+      $.ajax({
+        url: serv + "/ai_uploader",
+        type: 'post',
+        processData: false,
+        contentType: false,
+        data: formdata,
+        dataType: 'json',
+        success: function (data) {
+          console.log(data);
+          document.getElementById("from_user").innerText = data.from_user;
+          if(data.chat){
+            document.getElementById("player").src = serv + "/chat/" + data.chat;
+          }else{
+            document.getElementById("player").src = serv + "/music/" + data.music;
+          }
+
+        }
+      });
+
+    })
+  }
 
 </script>
 </html>

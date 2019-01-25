@@ -51,6 +51,10 @@ class Animal(object):
 
 
 class Cat(Animal):
+    def __init__(self, name, sound):
+        super().__init__(name)
+        self.sound = sound
+
     def cat_sound(self):
         print("喵")
 
@@ -58,6 +62,11 @@ class Cat(Animal):
 class Dog(Animal):
     def dog_sound(self):
         print("汪")
+
+
+obj = Cat("猫", "喵")
+
+print(obj.name)
 
 
 class Foo(object):
@@ -73,8 +82,3 @@ class Foo(object):
         print('property')
 
     BAR = property(get_bar, set_bar, del_bar, '131313')
-
-obj = Foo()
-
-
-print(Foo.BAR.__doc__)

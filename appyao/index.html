@@ -21,7 +21,7 @@
 				<span class="mui-tab-label">消息</span>
 			</a>
 			<a class="mui-tab-item">
-				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-icon mui-icon-email" id="req"></span>
 				<span class="mui-tab-label">邮件</span>
 			</a>
 			<a class="mui-tab-item" id="self">
@@ -136,7 +136,22 @@
 			}) 
 		})
 		
+		document.addEventListener("cut",function(data){
+			var count = document.getElementById("count")
+			count.innerText = parseInt(count.innerText) - parseInt(data.detail.count);
+		});
 		
+		document.getElementById('req').addEventListener('tap',function () {
+		    mui.openWindow({
+				url: "req_list.html",
+				id: "req_list.html",
+				styles: {
+					top: "0px",
+					bottom: "50px"
+				},
+				createNew:true
+			}) 
+		})
 	</script>
 
 </html>

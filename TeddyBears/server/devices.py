@@ -35,44 +35,44 @@ def bind_toy():
     # toys.bind_user = "user_id"
     # users.bind_toy = ["toy_id"]
     # 1.device_key 2.fromdata 3. who bind toy
-    toy_info = request.form.to_dict()
+    toy_infos = request.form.to_dict()
 
     # 创建聊天窗口
     chat_window = Mongo_DB.chats.insert_one({"user_list": [], "chat_list": []})
 
     # 通过user_id去查询用户信息 谁绑定玩具
-    user_info = Mongo_DB.users.find_one({"_id": ObjectId(toy_info["user_id"])})
+    user_info = Mongo_DB.users.find_one({"_id": ObjectId(toy_infos["user_id"])})
 
-    toy_info["bind_user"] = toy_info.pop("user_id")
-    toy_info["avatar"] = "toy.png"
+    toy_infos["bind_user"] = toy_infos.pop("user_id")
+    toy_infos["avatar"] = "toy.png"
     # 自然逻辑 好友关系
-    toy_info["friend_list"] = [
+    toy_infos["friend_list"] = [
         {
-            "friend_id": toy_info["bind_user"],
+            "friend_id": toy_infos["bind_user"],
             "friend_name": user_info.get("nickname"),
-            "friend_nick": toy_info.pop("remark"),
+            "friend_nick": toy_infos.pop("remark"),
             "friend_avatar": user_info.get("avatar"),
             "friend_type": "app",
             "friend_chat": str(chat_window.inserted_id)
         }
     ]
 
-    toy = Mongo_DB.toys.insert_one(toy_info)
+    toy = Mongo_DB.toys.insert_one(toy_infos)
 
     # 用户添加绑定玩具 及 自然逻辑 好友关系
     user_info["bind_toy"].append(str(toy.inserted_id))
     user_add_toy = {
         "friend_id": str(toy.inserted_id),
-        "friend_name": toy_info.get("toy_name"),
-        "friend_nick": toy_info.get("baby_name"),
-        "friend_avatar": toy_info.get("avatar"),
+        "friend_name": toy_infos.get("toy_name"),
+        "friend_nick": toy_infos.get("baby_name"),
+        "friend_avatar": toy_infos.get("avatar"),
         "friend_type": "toy",
         "friend_chat": str(chat_window.inserted_id)
     }
 
     user_info["friend_list"].append(user_add_toy)
 
-    Mongo_DB.users.update_one({"_id": ObjectId(toy_info["bind_user"])}, {"$set": user_info})
+    Mongo_DB.users.update_one({"_id": ObjectId(toy_infos["bind_user"])}, {"$set": user_info})
     Mongo_DB.chats.update_one({"_id": chat_window.inserted_id}, {"$set": {"user_list": [
         str(toy.inserted_id), str(user_info.get("_id"))
     ]}})
@@ -115,7 +115,20 @@ def device_login():
     if dev:
         toy = Mongo_DB.toys.find_one(dev_info)
         if toy:
-            return jsonify({"music": "欢迎来到智能亲子互动乐园", "info": str(toy.get("_id"))})
+            return jsonify({"music": "Welcome.mp3", "info": str(toy.get("_id"))})
         return jsonify({"info": "请对我进行绑定后再玩耍"})
     else:
         return jsonify({"info": "请联系玩具经销商"})
+
+
+@devices.route("/toyInfo", methods=["POST"])
+def toy_info():
+    toy_id = request.form.get("toy_id")
+    toy_infos = Mongo_DB.toys.find_one({"_id": ObjectId(toy_id)})
+    toy_infos["_id"] = str(toy_infos.get("_id"))
+
+    RESULT["error_not"] = 0
+    RESULT["msg"] = "查看最新玩具数据"
+    RESULT["data"] = toy_infos
+
+    return jsonify(RESULT)

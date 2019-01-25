@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.css"/>
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title"><span id="toy_title">xxxxx</span>详细信息</h1>
+    </header>
+	<div class="mui-content">
+	    <div class="mui-row" style="text-align: center; margin-top: 10px;">
+	        <img id="avatar"  style="width: 250px;height: 250px;border-radius: 50%;" />
+	    </div>
+	    <ul class="mui-table-view">
+	            <li class="mui-table-view-cell">
+	                <a class="mui-navigate-right">
+	                    <span>玩具名称 ：</span>
+	                    <span id="toy_name"></span>
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a class="mui-navigate-right">
+	                     <span>宝宝名称 ：</span>
+	                    <span id="baby_name"></span>
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a class="mui-navigate-right">
+	                    <span>设备编号 ：</span>
+	                    <span id="device_key"></span>
+	                </a>
+	            </li>	           
+	            <li class="mui-table-view-cell">
+	                <a class="mui-navigate-right" >
+						<img id="device_key_img" style="width: 100px;height: 100px;"/>
+	                </a>
+	            </li>
+	        </ul>
+	
+		<div class="mui-row" style="text-align: center;">
+		    玩具通讯录
+		</div>
+		<ul class="mui-table-view mui-grid-view" id="friend_list">
+		    <li class="mui-table-view-cell mui-media mui-col-xs-3">
+		        <a id="add_req">
+		            <img class="mui-media-object" style="width: 75px;height: 75px;border-radius: 50%;" src="image/add.jpg">
+		            <div class="mui-media-body">添加好友</div>
+		        </a>
+		    </li>
+		</ul>
+	</div>
+</body>
+    <script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+    	mui.init();
+    	var Sdata = null;
+    	mui.plusReady(function () {
+    		Sdata = plus.webview.currentWebview();
+    	    mui.post(window.serv + '/toyInfo',{ 
+    	    		toy_id:Sdata._id
+    	    	},function(data){
+    	    		console.log(JSON.stringify(data));
+    	    		document.getElementById("toy_title").innerText = data.data.toy_name;
+    	    		document.getElementById("avatar").src = "avatar/" + data.data.avatar;
+    	    		document.getElementById("toy_name").innerText = data.data.toy_name;
+    	    		document.getElementById("baby_name").innerText = data.data.baby_name;
+    	    		document.getElementById("device_key").innerText = data.data.device_key;
+    	    		document.getElementById("device_key_img").src = window.serv + "/get_qr/" + data.data.device_key +".jpg";
+    	    		for (var i = 0; i < data.data.friend_list.length; i++) {   	    			
+    	    			create_friend(data.data.friend_list[i]);
+    	    		}
+    	    	},'json'
+    	    );
+    	});
+    	
+    	document.getElementById('add_req').addEventListener('tap',function () {
+//  	       mui.toast("进入扫码页面");
+			mui.openWindow({
+				url: "scanQR.html",
+				id: "scanQR.html",
+				extras:{type:"toy",toy_id:Sdata._id}
+			})
+    	});
+    	
+    	function create_friend(friend){
+		  var li = document.createElement("li");
+          li.className ="mui-table-view-cell mui-media mui-col-xs-3";
+          var a = document.createElement("a");
+          a.onclick = function(){
+          		mui.openWindow({
+          			url:"player.html",
+          			id:"player.html",
+          			extras:content
+          		})
+          }
+          var img = document.createElement("img");
+          img.className ="mui-media-object";
+          img.style.cssText = "width: 75px;height: 75px;border-radius: 50%;";
+          img.src = "avatar/" + friend.friend_avatar;
+          var div = document.createElement("div");
+          div.className="mui-media-body";
+          div.innerText = friend.friend_nick;
+          li.appendChild(a);
+          a.appendChild(img);
+          a.appendChild(div);
+          document.getElementById("friend_list").appendChild(li);
+    	}
+    	
+    </script>
+</html>

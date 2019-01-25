@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/mui.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">处理好友请求</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>好友备注</label>
+					<input type="text" id="friend_remark" class="mui-input-clear" placeholder="给好友加个昵称">
+				</div>
+				<div class="mui-input-row">
+					<span>**好友备注发音尽量不要出现重复</span>
+				</div>
+				<div class="mui-button-row">
+					<button type="button" class="mui-btn mui-btn-primary" id="acc_req">acc</button>
+					<button type="button" class="mui-btn mui-btn-danger" id="ref_req">ref</button>
+				</div>
+			</form>
+		</div>
+		<script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			var Sdata = null;
+			mui.plusReady(function () {
+			    Sdata = plus.webview.currentWebview();
+			})
+			document.getElementById('acc_req').addEventListener('tap',function () {
+				mui.post(window.serv + '/acc_req',{
+						req_id:Sdata._id,
+						remark:document.getElementById("friend_remark").value,
+					},function(data){
+						console.log(JSON.stringify(data));
+						if(data.error_not == 0){
+							mui.openWindow({
+								url: "toy_manager.html",
+								id: "toy_manager.html",
+								createNew:true
+							}) 
+						}
+					},'json'
+				);
+			})
+			
+			document.getElementById('ref_req').addEventListener('tap',function () {
+			   mui.post(window.serv + '/ref_req',{
+						req_id:Sdata._id
+					},function(data){
+						mui.back();
+					},'json'
+				);     
+			})
+		</script>
+	</body>
+
+</html>
