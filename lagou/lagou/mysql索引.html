@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="referrer" content="origin" />
+    <title>MySQL(五) MySQL中的索引详讲 - 一杯凉茶 - 博客园</title>
+<meta property="og:description" content="序言 之前写到MySQL对表的增删改查(查询最为重要)后，就感觉MySQL就差不多学完了，没有想继续学下去的心态了，原因可能是由于别人的影响，觉得对于MySQL来说，知道了一些复杂的查询，就够了，但是" />
+    <link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=-duj5vpGTntb85GJoM3iRI972XwWcI-j8zmqDzyfu2w1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/coffee/bundle-coffee.css?v=NnZbvdgFaQNhu3t8P4Wsaz98sDQkgRt7Qxq2rzF0ZRU1"/>
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/coffee/bundle-coffee-mobile.css?v=OfvG_vpQi4imc8cNJvyI0PTRYmGWL2qE-MsbRMUToAQ1"/>
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/whgk/rss"/>
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/whgk/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/whgk/wlwmanifest.xml"/>
+    <script src="//common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script>var currentBlogId=262246;var currentBlogApp='whgk',cb_enable_mathjax=false;var isLogined=false;</script>
+    <script src="/bundles/blog-common.js?v=tC8jAZ0wy3oshizgQb8icmqAxTSV8P2dARl7fIs4eoE1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="https://www.cnblogs.com/whgk/"><img id="blogLogo" src="/Skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/whgk/">一杯凉茶</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<ul id="navList">
+	<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">博客园</a></li>
+	<li><a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/whgk/">首页</a></li>
+	<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+	<li><a id="blog_nav_contact" accesskey="9" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E4%B8%80%E6%9D%AF%E5%87%89%E8%8C%B6">联系</a></li>
+	<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+	<li><a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/whgk/rss">订阅</a>
+	<a id="blog_nav_rss_image" class="aHeaderXML" href="https://www.cnblogs.com/whgk/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a></li>
+</ul>
+
+
+			<div class="blogStats">
+				
+				<div id="blog_stats">
+<!--done-->
+随笔- 92&nbsp;
+文章- 0&nbsp;
+评论- 364&nbsp;
+</div>
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		
+        <div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/whgk/p/6179612.html">MySQL(五) MySQL中的索引详讲</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p>　　　　　　序言</p>
+<p>　　　　　　　　　之前写到MySQL对表的增删改查(查询最为重要)后，就感觉MySQL就差不多学完了，没有想继续学下去的心态了，原因可能是由于别人的影响，觉得对于MySQL来说，知道了一些复杂的查询，就够了，但是我认为，不管有没有用，现在学着不懂的东西，说明就是自己薄弱的地方，多学才能比别人更强</p>
+<p>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　--WH</p>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000; font-size: 18pt">一、什么是索引？为什么要建立索引？</span></p>
+<p>　　　　　　　索引用于快速找出在某个列中有一特定值的行，不使用索引，MySQL必须从第一条记录开始读完整个表，直到找出相关的行，表越大，查询数据所花费的时间就越多，如果表中查询的列有一个索引，MySQL能够快速到达一个位置去搜索数据文件，而不必查看所有数据，那么将会节省很大一部分时间。</p>
+<p>　　　　　　　例如：有一张person表，其中有2W条记录，记录着2W个人的信息。有一个Phone的字段记录每个人的电话号码，现在想要查询出电话号码为xxxx的人的信息。</p>
+<p>　　　　　　　　　　如果没有索引，那么将从表中第一条记录一条条往下遍历，直到找到该条信息为止。</p>
+<p>　　　　　　　　　　如果有了索引，那么会将该Phone字段，通过一定的方法进行存储，好让查询该字段上的信息时，能够快速找到对应的数据，而不必在遍历2W条数据了。其中MySQL中的索引的存储类型有两种：BTREE、HASH。 也就是用树或者Hash值来存储该字段，要知道其中详细是如何查找的，就需要会算法的知识了。我们现在只需要知道索引的作用，功能是什么就行。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000; font-size: 18pt">二、MySQL中索引的优点和缺点和使用原则</span></p>
+<p>　　　　　　<span style="color: #ff0000; font-size: 16px">优点：</span></p>
+<p>　　　　　　　2、所有的MySql列类型(字段类型)都可以被索引，也就是可以给任意字段设置索引</p>
+<p>　　　　　　　3、大大加快数据的查询速度</p>
+<p>　　　　　　<span style="color: #ff0000; font-size: 16px">缺点：</span></p>
+<p>　　　　　　　1、创建索引和维护索引要耗费时间，并且随着数据量的增加所耗费的时间也会增加</p>
+<p>　　　　　　　2、索引也需要占空间，我们知道数据表中的数据也会有最大上线设置的，如果我们有大量的索引，索引文件可能会比数据文件更快达到上线值</p>
+<p>　　　　　　　3、当对表中的数据进行增加、删除、修改时，索引也需要动态的维护，降低了数据的维护速度。</p>
+<p>　　　　　　<span style="color: #ff0000">使用原则：</span></p>
+<p>　　　　　　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 通过上面说的优点和缺点，我们应该可以知道，并不是每个字段度设置索引就好，也不是索引越多越好，而是需要自己合理的使用。</p>
+<p>　　　　　　　1、对经常更新的表就避免对其进行过多的索引，对经常用于查询的字段应该创建索引，</p>
+<p>　　　　　　　2、数据量小的表最好不要使用索引，因为由于数据较少，可能查询全部数据花费的时间比遍历索引的时间还要短，索引就可能不会产生优化效果。</p>
+<p>　　　　　　　3、在一同值少的列上(字段上)不要建立索引，比如在学生表的"性别"字段上只有男，女两个不同值。相反的，在一个字段上不同值较多可是建立索引。</p>
+<p>　　</p>
+<p>　　　　　　上面说的只是很片面的一些东西，索引肯定还有很多别的优点或者缺点，还有使用原则，先基本上理解索引，然后等以后真正用到了，就会慢慢知道别的作用。注意，学习这张，很重要的一点就是必须先得知道索引是什么，索引是干嘛的，有什么作用，为什么要索引等等，如果不知道，就重复往上面看看写的文字，好好理解一下。一个表中很够创建多个索引，这些索引度会被存放到一个索引文件中(专门存放索引的地方)</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000; font-size: 18pt">三、索引的分类</span>　　</p>
+<p>　　　　　　　注意：索引是在存储引擎中实现的，也就是说不同的存储引擎，会使用不同的索引</p>
+<p>　　　　　　　　　　　　MyISAM和InnoDB存储引擎：只支持BTREE索引， 也就是说默认使用BTREE，不能够更换</p>
+<p>　　　　　　　　　　　　MEMORY/HEAP存储引擎：支持HASH和BTREE索引</p>
+<p>　　　　　　　1、索引我们分为四类来讲 单列索引(普通索引，唯一索引，主键索引)、组合索引、全文索引、空间索引、</p>
+<p>　　　　　　　　　　1.1、<span style="color: #ff0000">单列索引</span>：一个索引只包含单个列，但一个表中可以有多个单列索引。 这里不要搞混淆了。</p>
+<p>　　　　　　　　　　　　　1.1.1、<span style="color: #ff0000">普通索引</span>：</p>
+<p>　　　　　　　　　　　　　　　　　　MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值，纯粹为了查询数据更快一点。</p>
+<p>　　　　　　　　　　　　　1.1.2、<span style="color: #ff0000">唯一索引</span>：</p>
+<p>　　　　　　　　　　　　　　　　　　索引列中的值必须是唯一的，但是允许为空值，</p>
+<p>　　　　　　　　　　　　　1.1.3、<span style="color: #ff0000">主键索引</span>：</p>
+<p>　　　　　　　　　　　　　　　　　　是一种特殊的唯一索引，不允许有空值。</p>
+<p>　　　　　　　　　　1.2、<span style="color: #ff0000">组合索引</span></p>
+<p>　　　　　　　　　　　　　　　在表中的多个字段组合上创建的索引，只有在查询条件中使用了这些字段的左边字段时，索引才会被使用，使用组合索引时遵循最左前缀集合。这个如果还不明白，等后面举例讲解时在细说　</p>
+<p>　　　　　　　　　　1.3、<span style="color: #ff0000">全文索引</span></p>
+<p>　　　　　　　　　　　　　　　全文索引，只有在MyISAM引擎上才能使用，只能在CHAR,VARCHAR,TEXT类型字段上使用全文索引，介绍了要求，说说什么是全文索引，就是在一堆文字中，通过其中的某个关键字等，就能找到该字段所属的记录行，比如有"你是个大煞笔，二货 ..." 通过大煞笔，可能就可以找到该条记录。这里说的是可能，因为全文索引的使用涉及了很多细节，我们只需要知道这个大概意思，如果感兴趣进一步深入使用它，那么看下面测试该索引时，会给出一个博文，供大家参考。</p>
+<p>　　　　　　　　　　1.4、<span style="color: #ff0000">空间索引</span></p>
+<p>　　　　　　　　　　　　　　　空间索引是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有四种，GEOMETRY、POINT、LINESTRING、POLYGON。</p>
+<p>　　　　　　　　　　　　　　　在创建空间索引时，使用SPATIAL关键字。</p>
+<p>　　　　　　　　　　　　　　　要求，引擎为MyISAM，创建空间索引的列，必须将其声明为NOT NULL。具体细节看下面　　　</p>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000; font-size: 18pt">四、索引操作(创建和删除)</span></p>
+<p>　　　　　　<span style="color: #ff0000; font-size: 18px">4.1、创建索引</span></p>
+<p>　　　　　　　　　　<span style="color: #ff0000; font-size: 16px">4.1.1、创建表的时候创建索引</span></p>
+<p>　　　　　　　　　　　　格式：CREATE TABLE 表名[字段名 数据类型]&nbsp; [UNIQUE|FULLTEXT|SPATIAL|...] [INDEX|KEY] [索引名字] (字段名[length]) 　　[ASC|DESC]</p>
+<p>　　　　　　　　　　　　　　　|--------------------------------------|&nbsp; |-----------------------------------| |------------| |---------| |---------------|&nbsp; 　　|------------|</p>
+<p>　　　　　　　　　　　　　　　　　　　　普通创建表语句　　　　　　　　设置什么样的索引(唯一、全文等)　　索引关键字　 索引名字　对哪个字段设置索引　　对索引进行排序　</p>
+<p>　　　　　　　　　　　　　　<span style="color: #ff0000">4.1.1.1、创建普通索引</span>　　　　　　　　　　　　　　</p>
+<p>　　　　　　　　　　　　　　　　CREATE TABLE book　　　　　　　　　　　　　　　　　　　　CREATE TABLE book</p>
+<p>　　　　　　　　　　　　　　　　(　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　(</p>
+<p>　　　　　　　　　　　　　　　　　　bookid INT NOT NULL,　　　　　　　　　　　　　　　　　　bookid INT NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　bookname VARCHAR(255) NOT NULL,　　　　　　　　　　 bookname VARCHAR(255) NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　authors VARCHAR(255) NOT NULL,　　　　　　　　　　　&nbsp; authors VARCHAR(255) NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　info VARCHAR(255) NULL,　　　　　　　　　　　　　　　　info VARCHAR(255) NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　comment VARCHAR(255) NULL,　　　　　　　　　　　　　comment VARCHAR(255) NULL,　</p>
+<p>　　　　　　　　　　　　　　　　　　year_publication YEAR NOT NULL,　　　　　　　　　　　　year_publication YEAR NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　<span style="color: #ff0000">INDEX</span>(year_publication)　　　　　　　　　　　　　　　　　<span style="color: #ff0000">KEY</span>(year_publication)　</p>
+<p>　　　　　　　　　　　　　　　　);　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　);</p>
+<p>　　　　　　　　　　　　　　上面两种方式创建度可以，通过这个例子可以对比一下格式，就差不多明白格式是什么意思了。</p>
+<p>　　　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214144321386-1913672462.png" alt="" width="469" height="335">　　</p>
+<p>　　　　　　　　　　　　　　　　通过打印结果，我们在创建索引时没写索引名的话，会自动帮我们用字段名当作索引名。</p>
+<p>　　　　　　　　　　　　　　　　测试：看是否使用了索引进行查询。</p>
+<p>　　　　　　　　　　　　　　　　　　EXPLAIN SELECT * FROM book WHERE year_publication = 1990\G;</p>
+<p>　　　　　　　　　　　　　　　　　　解释：虽然表中没数据，但是有EXPLAIN关键字，用来查看索引是否正在被使用，并且输出其使用的索引的信息。</p>
+<p>　　　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214144949198-761711481.png" alt="" width="471" height="169">　</p>
+<p>　　　　　　　　　　　　　　　　　　　　id:　SELECT识别符。这是SELECT的查询序列号,也就是一条语句中，该select是第几次出现。在次语句中，select就只有一个，所以是1.</p>
+<p>　　　　　　　　　　　　　　　　　　　　select_type:所使用的SELECT查询类型，SIMPLE表示为简单的SELECT，不实用UNION或子查询，就为简单的SELECT。也就是说在该SELECT查询时会使用索引。其他取值，PRIMARY：最外面的SELECT.在拥有子查询时，就会出现两个以上的SELECT。UNION：union(两张表连接)中的第二个或后面的select语句&nbsp; SUBQUERY：在子查询中，第二SELECT。</p>
+<p>　　　　　　　　　　　　　　　　　　　　table：数据表的名字。他们按被读取的先后顺序排列，这里因为只查询一张表，所以只显示book</p>
+<p>　　　　　　　　　　　　　　　　　　　　type：指定本数据表和其他数据表之间的关联关系，该表中所有符合检索值的记录都会被取出来和从上一个表中取出来的记录作联合。ref用于连接程序使用键的最左前缀或者是该键不是 primary key 或 unique索引（换句话说，就是连接程序无法根据键值只取得一条记录）的情况。当根据键值只查询到少数几条匹配的记录时，这就是一个不错的连接类型。(注意，个人这里不是很理解，百度了很多资料，全是大白话，等以后用到了这类信息时，在回过头来补充，这里不懂对后面的影响不大。)可能的取值有 system、const、eq_ref、index和All</p>
+<p>　　　　　　　　　　　　　　　　　　　　possible_keys：MySQL在搜索数据记录时可以选用的各个索引，该表中就只有一个索引，year_publication</p>
+<p>　　　　　　　　　　　　　　　　　　　　key：实际选用的索引</p>
+<p>　　　　　　　　　　　　　　　　　　　　key_len：显示了mysql使用索引的长度(也就是使用的索引个数)，当 key 字段的值为 null时，索引的长度就是 null。注意，key_len的值可以告诉你在联合索引中mysql会真正使用了哪些索引。这里就使用了1个索引，所以为1，</p>
+<p>　　　　　　　　　　　　　　　　　　　　ref:给出关联关系中另一个数据表中数据列的名字。常量（const），这里使用的是1990，就是常量。</p>
+<p>　　　　　　　　　　　　　　　　　　　　rows：MySQL在执行这个查询时预计会从这个数据表里读出的数据行的个数。</p>
+<p>　　　　　　　　　　　　　　　　　　　　extra：提供了与关联操作有关的信息，没有则什么都不写。　　　</p>
+<p>　　　　　　　　　　　　　　　　　　上面的一大堆东西能看懂多少看多少，我们最主要的是看possible_keys和key 这两个属性，上面显示了key为year_publication。说明使用了索引。</p>
+<p>　　　　　　　　　　　　　<span style="color: #ff0000">4.1.1.2、创建唯一索引</span>　　</p>
+<p>　　　　　　　　　　　　　　　　CREATE TABLE t1</p>
+<p>　　　　　　　　　　　　　　　　(</p>
+<p>　　　　　　　　　　　　　　　　　　id INT NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　name CHAR(30) NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　UNIQUE INDEX UniqIdx(id)</p>
+<p>　　　　　　　　　　　　　　　　);　　</p>
+<p>　　　　　　　　　　　　　　　　解释：对id字段使用了索引，并且索引名字为UniqIdx。</p>
+<p>　　　　　　　　　　　　　　　　SHOW CREATE TABLE t1\G;</p>
+<p>　　　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214153850433-1777696893.png" alt="" width="627" height="252"></p>
+<p>&nbsp;　　　　　　　　　　　　　　　&nbsp; 要查看其中查询时使用的索引，必须先往表中插入数据，然后在查询数据，不然查找一个没有的id值，是不会使用索引的。</p>
+<p>　　　　　　　　　　　　　　　　INSERT INTO t1 VALUES(1,'xxx');</p>
+<p>　　　　　　　　　　　　　　　　EXPLAIN SELECT * FROM t1 WHERE id = 1\G;</p>
+<p>　　　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214191653151-1240013959.png" alt="" width="464" height="373"></p>
+<p>　　　　　　　　　　　　　　　　可以看到，通过id查询时，会使用唯一索引。并且还实验了查询一个没有的id值，则不会使用索引，我觉得原因是所有的id应该会存储到一个const tables中，到其中并没有该id值，那么就没有查找的必要了。　　　</p>
+<p>&nbsp;</p>
+<p>　　　　　　　　　　　　<span style="color: #ff0000">4.1.1.3、创建主键索引</span></p>
+<p>　　　　　　　　　　　　　　　　CREATE TABLE t2</p>
+<p>　　　　　　　　　　　　　　　　(</p>
+<p>　　　　　　　　　　　　　　　　　　id INT NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　name CHAR(10),</p>
+<p>　　　　　　　　　　　　　　　　　　PRIMARY KEY(id)</p>
+<p>　　　　　　　　　　　　　　　　);　　</p>
+<p>　　　　　　　　　　　　　　　　INSERT INTO t2 VALUES(1,'QQQ');</p>
+<p>　　　　　　　　　　　　　　　　EXPLAIN SELECT * FROM t2 WHERE id = 1\G;</p>
+<p>　　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214192438151-1848757748.png" alt="" width="432" height="314">　</p>
+<p>　　　　　　　　　　　　　　　　　通过这个主键索引，我们就应该反应过来，其实我们以前声明的主键约束，就是一个主键索引，只是之前我们没学过，不知道而已。</p>
+<p>　　　　　　　　　　　&nbsp; <span style="color: #ff0000">4.1.1.4、创建单列索引</span>　</p>
+<p>&nbsp;　　　　　　　　　　　　　　　　这个其实就不用在说了，前面几个就是单列索引。</p>
+<p>&nbsp;</p>
+<p>&nbsp;　　　　　　　　　　　 <span style="color: #ff0000">4.1.1.5、创建组合索引</span></p>
+<p>　　　　　　　　　　　　　　　　组合索引就是在多个字段上创建一个索引</p>
+<p>　　　　　　　　　　　　　　　　创建一个表t3，在表中的id、name和age字段上建立组合索引</p>
+<p>　　　　　　　　　　　　　　　　CREATE TABLE t3</p>
+<p>　　　　　　　　　　　　　　　　(</p>
+<p>　　　　　　　　　　　　　　　　　　id INT NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　name CHAR(30) NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　age INT NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　info VARCHAR(255),</p>
+<p>　　　　　　　　　　　　　　　　　　INDEX MultiIdx(id,name,age)</p>
+<p>　　　　　　　　　　　　　　　　);</p>
+<p>　　　　　　　　　　　　　　　　SHOW CREATE t3\G;</p>
+<p>　　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214194446683-51138137.png" alt="" width="439" height="310">　</p>
+<p>　　　　　　　　　　　　　　　　解释最左前缀</p>
+<p>　　　　　　　　　　　　　　　　　　　　　　组合索引就是遵从了最左前缀，利用索引中最左边的列集来匹配行，这样的列集称为最左前缀，不明白没关系，举几个例子就明白了，例如，这里由id、name和age3个字段构成的索引，索引行中就按id/name/age的顺序存放，索引可以索引下面字段组合(id，name，age)、(id，name)或者(id)。如果要查询的字段不构成索引最左面的前缀，那么就不会是用索引，比如，age或者（name，age）组合就不会使用索引查询</p>
+<p>　　　　　　　　　　　　　　　　在t3表中，查询id和name字段</p>
+<p>　　　　　　　　　　　　　　　　EXPLAIN SELECT * FROM t3 WHERE id = 1 AND name = 'joe'\G;</p>
+<p>　　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214195112573-1899104092.png" alt="" width="437" height="208">　</p>
+<p>　　　　　　　　　　　　　　　　在t3表中，查询(age，name)字段，这样就不会使用索引查询。来看看结果</p>
+<p>　　　　　　　　　　　　　　　　EXPLAIN SELECT * FROM t3 WHERE age = 3 AND name = 'bob'\G;</p>
+<p>　　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214195313495-1700675179.png" alt="" width="436" height="203">　</p>
+<p>　　　　　　　　　　　　<span style="color: #ff0000">4.1.1.6、创建全文索引</span></p>
+<p>　　　　　　　　　　　　　　　　全文索引可以用于全文搜索，但只有MyISAM存储引擎支持FULLTEXT索引，并且只为CHAR、VARCHAR和TEXT列服务。索引总是对整个列进行，不支持前缀索引，</p>
+<p>　　　　　　　　　　　　　　　　CREATE TABLE t4</p>
+<p>　　　　　　　　　　　　　　　　(</p>
+<p>　　　　　　　　　　　　　　　　　　id&nbsp; INT NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　name CHAR(30) NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　age INT NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　info VARCHAR(255),</p>
+<p>　　　　　　　　　　　　　　　　　　FULLTEXT INDEX FullTxtIdx(info)</p>
+<p>　　　　　　　　　　　　　　　　)ENGINE=MyISAM;</p>
+<p>　　　　　　　　　　　　　　　　SHOW CREATE TABLE t4\G;</p>
+<p>　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214200326183-867208490.png" alt="" width="465" height="293"></p>
+<p>　　　　　　　　　　　　　　　使用一下什么叫做全文搜索。就是在很多文字中，通过关键字就能够找到该记录。</p>
+<p>　　　　　　　　　　　　　　　　　　INSERT INTO t4 VALUES(8,'AAA',3,'text is so good，hei，my name is bob'),(9,'BBB',4,'my name is gorlr');</p>
+<p>　　　　　　　　　　　　　　　　　　SELECT * FROM t4 WHERE MATCH(info) AGAINST('gorlr');</p>
+<p>　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214203833683-858144284.png" alt="" width="467" height="115"></p>
+<p>　　　　　　　　　　　　　　　　　　EXPLAIN&nbsp;SELECT * FROM t4 WHERE MATCH(info) AGAINST('gorlr');</p>
+<p>　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214203925370-2117398520.png" alt="" width="471" height="201"></p>
+<p>　　　　　　　　　　　　　　　　　　注意：在使用全文搜索时，需要借助MATCH函数，并且其全文搜索的限制比较多，比如只能通过MyISAM引擎，比如只能在CHAR,VARCHAR,TEXT上设置全文索引。比如搜索的关键字默认至少要4个字符，比如搜索的关键字太短就会被忽略掉。等等，如果你们在实验的时候可能会实验不出来。感兴趣的同学可以看看这篇文章，<a title="http://blog.sina.com.cn/s/blog_ae1611930101a063.html" href="http://blog.sina.com.cn/s/blog_ae1611930101a063.html" target="_blank">全文搜索的使用</a></p>
+<p>&nbsp;</p>
+<p>　　　　　　　　　　　　<span style="color: #ff0000">4.1.1.7、创建空间索引</span></p>
+<p>　　　　　　　　　　　　　　　　空间索引也必须使用MyISAM引擎， 并且空间类型的字段必须为非空。 这个空间索引具体能干嘛我也不知道，可能跟游戏开发有关，可能跟别的东西有关，等遇到了自然就知道了，现在只要求能够创建出来。</p>
+<p>　　　　　　　　　　　　　　　　CREATE TABLE t5</p>
+<p>　　　　　　　　　　　　　　　　(</p>
+<p>　　　　　　　　　　　　　　　　　　g GEOMETRY NOT NULL,</p>
+<p>　　　　　　　　　　　　　　　　　　SPATIAL INDEX spatIdx(g)</p>
+<p>　　　　　　　　　　　　　　　　) ENGINE = MyISAM;</p>
+<p>　　　　　　　　　　　　　　　　SHOW CREATE TABLE t5\G;</p>
+<p>　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214205610808-1047960715.png" alt="" width="474" height="250"></p>
+<p>　　　　　　　　　　<span style="color: #ff0000; font-size: 18px">4.1.2、在已经存在的表上创建索引</span></p>
+<p>　　　　　　　　　　　　　　格式：ALTER TABLE 表名 ADD[UNIQUE|FULLTEXT|SPATIAL] [INDEX|KEY] [索引名] (索引字段名)[ASC|DESC]</p>
+<p>　　　　　　　　　　　　　　　　　有了上面的基础，这里就不用过多陈述了。</p>
+<p>　　　　　　　　　　　　　　命令一：SHOW INDEX FROM 表名\G　　</p>
+<p>　　　　　　　　　　　　　　　　　　查看一张表中所创建的索引</p>
+<p>　　　　　　　　　　　　　　　　　　SHOW INDEX FROM book\G;</p>
+<p>　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214210037073-717985558.png" alt="" width="486" height="263">　　</p>
+<p>　　　　　　　　　　　　　　　　　　挑重点讲，我们需要了解的就5个，用红颜色标记了的，如果想深入了解，可以去查查该方面的资料，我个人觉得，这些等以后实际工作中遇到了在做详细的了解把。</p>
+<p>　　　　　　　　　　　　　　　　　　<span style="color: #ff0000">Table</span>:创建索引的表</p>
+<p>　　　　　　　　　　　　　　　　　　<span style="color: #ff0000">Non_unique</span>：表示索引非唯一，1代表 非唯一索引， 0代表 唯一索引，意思就是该索引是不是唯一索引</p>
+<p>　　　　　　　　　　　　　　　　　　<span style="color: #ff0000">Key_name</span>：索引名称</p>
+<p>　　　　　　　　　　　　　　　　　　Seq_in_index 表示该字段在索引中的位置，单列索引的话该值为1，组合索引为每个字段在索引定义中的顺序(这个只需要知道单列索引该值就为1，组合索引为别的)</p>
+<p>　　　　　　　　　　　　　　　　　　<span style="color: #ff0000">Column_name</span>：表示定义索引的列字段</p>
+<p>　　　　　　　　　　　　　　　　　　Sub_part：表示索引的长度</p>
+<p>　　　　　　　　　　　　　　　　　　Null：表示该字段是否能为空值</p>
+<p>　　　　　　　　　　　　　　　　　　<span style="color: #ff0000">Index_type</span>：表示索引类型</p>
+<p>　　　　　　　　　　　　　<span style="color: #ff0000; font-size: 16px">4.1.2.1、为表添加索引</span></p>
+<p>　　　　　　　　　　　　　　　　就拿上面的book表来说。本来已经有了一个year_publication，现在我们为该表在加一个普通索引</p>
+<p>　　　　　　　　　　　　　　　　ALTER TABLE book ADD INDEX BkNameIdx(bookname(30));</p>
+<p>　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214211037495-1257102013.png" alt="" width="418" height="393"></p>
+<p>　　　　　　　　　　　　　　　　看输出结果，就能知道，添加索引成功了。 </p>
+<p>　　　　　　　　　　　　　　　　这里只是拿普通索引做个例子，添加其他索引也是一样的。依葫芦画瓢而已。这里就不一一做讲解了。</p>
+<p>　　　　　　　　　　　　　<span style="color: #ff0000; font-size: 16px">4.1.2.2、使用CREATE INDEX创建索引。</span></p>
+<p>　　　　　　　　　　　　　　　　格式：CREATE [UNIQUE|FULLTEXT|SPATIAL] [INDEX|KEY] 索引名称 ON 表名(创建索引的字段名[length])[ASC|DESC] </p>
+<p>　　　　　　　　　　　　　　　　　　解释：其实就是换汤不换药，格式改变了一下而已，做的事情跟上面完全一样，做一个例子。</p>
+<p>　　　　　　　　　　　　　　　　在为book表增加一个普通索引，字段为authors。</p>
+<p>　　　　　　　　　　　　　　　　CREATE INDEX BkBookNameIdx ON book(bookname);</p>
+<p>　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214211759183-1295211845.png" alt="" width="455" height="60"></p>
+<p>　　　　　　　　　　　　　　　　SHOW INDEX FROM book\G;　　//查看book表中的索引</p>
+<p>　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214211847495-810950797.png" alt="" width="448" height="397"></p>
+<p>　　　　　　　　　　　　　　　　　　解释：第一条截图没截到，因为图太大了，这里只要看到有我们新加进去的索引就证明成功了。。其他索引也是一样的创建。</p>
+<p>　　　　　　<span style="color: #ff0000; font-size: 18px">4.2、删除索引</span></p>
+<p>&nbsp;　　　　　　　　　　　前面讲了对一张表中索引的添加，查询的方法。</p>
+<p>　　　　　　　　　　　　　　<span style="color: #ff0000">添加</span>的两种方式</p>
+<p>　　　　　　　　　　　　　　　　1在创建表的同时如何创建索引，</p>
+<p>　　　　　　　　　　　　　　　　2在创建了表之后如何给表添加索引的两种方式，</p>
+<p>　　　　　　　　　　　　　　<span style="color: #ff0000">查询</span>的方式</p>
+<p>　　　　　　　　　　　　　　　　SHOW INDEX FROM 表名\G；　　\G只是让输出的格式更好看</p>
+<p>　　　　　　　　　　　　　　现在来说说如何给表<span style="color: #ff0000">删除</span>索引的两种操作。</p>
+<p>　　　　　　　　　　　　　　　　<span style="color: #ff0000; font-size: 16px">格式一：ALTER TABLE 表名 DROP INDEX 索引名</span>。</p>
+<p>　　　　　　　　　　　　　　　　　　很简单的语句，现在通过一个例子来看看，还是对book表进行操作，删除我们刚才为其添加的索引。</p>
+<p>　　　　　　　　　　　　　　　　1、删除book表中的名称为BkBookNameIdx的索引。</p>
+<p>　　　　　　　　　　　　　　　　　　ALTER TABLE book DROP INDEX&nbsp;BkBookNameIdx;</p>
+<p>&nbsp;　　　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214212452167-956236787.png" alt="" width="480" height="62"></p>
+<p>　　　　　　　　　　　　　　　　　　SHOW INDEX FROM book\G;　　//在查看book表中的索引，就会发现BkBookNameIdx这个索引已经不在了</p>
+<p>　　　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214212557167-1472378984.png" alt="" width="479" height="364"></p>
+<p>&nbsp;</p>
+<p>&nbsp;　　　　　　　　　　　　　　　　　　<span style="color: #ff0000; font-size: 16px">格式二：DROP INDEX 索引名 ON 表名；</span></p>
+<p>&nbsp;　　　　　　　　　　　　　　　　　　　　　　删除book表中名为BkNameIdx的索引</p>
+<p>　　　　　　　　　　　　　　　　　　　　　　DROP INDEX&nbsp;BkNameIdx ON book;</p>
+<p>&nbsp;　　　　　　　　　　　　　　　　　　　　　　SHOW INDEX FROM book\G;</p>
+<p>　　　　　　　　　　　　　　　　　　　　　　　<img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161214212852042-22732920.png" alt="" width="493" height="309">　</p>
+<p>&nbsp;</p>
+<p><span style="color: #ff0000; font-size: 18pt">五、总结</span></p>
+<p>　　　　　　MySQL的索引到这里差不多就讲完了，总结一下我们到目前为止应该知道哪些东西</p>
+<p>　　　　　　　　1、索引是干嘛的？为什么要有索引？</p>
+<p>　　　　　　　　　　　　这个很重要，需要自己理解一下，不懂就看顶部的讲解</p>
+<p>　　　　　　　　2、索引的分类</p>
+<p>　　　　　　　　3、索引的操作</p>
+<p>　　　　　　　　　　　　给表中创建索引，添加索引，删除索引，删除索引　　</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2016-12-14 21:34</span> <a href='https://www.cnblogs.com/whgk/'>一杯凉茶</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="https://i.cnblogs.com/EditPosts.aspx?postid=6179612" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(6179612);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=262246,cb_entryId=6179612,cb_blogApp=currentBlogApp,cb_blogUserGuid='96c1a905-47b4-e511-9fc1-ac853d9f53cc',cb_entryCreatedDate='2016/12/14 21:34:00';loadViewCount(cb_entryId);var cb_postType=1;var isMarkdown=false;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+        googletag.defineSlot('/1090369/C1', [300, 250], 'div-gpt-ad-1546353474406-0').addService(googletag.pubads());
+        googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+  });
+</script>
+<div id='cnblogs_c1' class='c_ad_block'>
+    <div id='div-gpt-ad-1546353474406-0' style='height:250px; width:300px;'></div>
+</div>
+<div id='under_post_news'></div>
+<div id='cnblogs_c2' class='c_ad_block'>
+    <div id='div-gpt-ad-1539008685004-0' style='height:60px; width:468px;'></div>
+</div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+ if(enablePostBottom()) {
+    codeHighlight();
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverT2();
+    deliverC1();
+    deliverC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);  
+}
+</script>
+</div>
+
+    
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<DIV id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</DIV>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2019 一杯凉茶
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+</body>
+</html>

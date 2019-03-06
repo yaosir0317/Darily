@@ -1,0 +1,23 @@
+2019-03-04 17:03:02 [scrapy.core.scraper] ERROR: Spider error processing <GET https://www.lagou.com/jobs/list_python?city=%E5%8C%97%E4%BA%AC&cl=false&fromSearch=true&labelWords=&suginput=> (referer: None)
+Traceback (most recent call last):
+  File "c:\users\administrator\appdata\local\programs\python\python36\lib\site-packages\twisted\internet\defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "D:\python-file\VUE\Daily\scrapysele\scrapysele\spiders\sele.py", line 25, in parse
+    self.bro.execute_script(self, new_window)
+  File "c:\users\administrator\appdata\local\programs\python\python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 636, in execute_script
+    'args': converted_args})['value']
+  File "c:\users\administrator\appdata\local\programs\python\python36\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 319, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "c:\users\administrator\appdata\local\programs\python\python36\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 372, in execute
+    data = utils.dump_json(params)
+  File "c:\users\administrator\appdata\local\programs\python\python36\lib\site-packages\selenium\webdriver\remote\utils.py", line 33, in dump_json
+    return json.dumps(json_struct)
+  File "c:\users\administrator\appdata\local\programs\python\python36\lib\json\__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+  File "c:\users\administrator\appdata\local\programs\python\python36\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "c:\users\administrator\appdata\local\programs\python\python36\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "c:\users\administrator\appdata\local\programs\python\python36\lib\json\encoder.py", line 180, in default
+    o.__class__.__name__)
+TypeError: Object of type 'SeleSpider' is not JSON serializable
