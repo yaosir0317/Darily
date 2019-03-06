@@ -115,21 +115,21 @@
 		写代码
 		git add .-----------------------------------------------------------------------------增加
 		git commit -m 'xx'--------------------------------------------------------------------提交到版本库
-		git remote add origin https://github.com/WuPeiqi/greenlu.git -------------------------为地址起一个别名origin
+		git remote add origin https://github.com/yaosir0317/greenlu.git -------------------------为地址起一个别名origin
 		git push origin master----------------------------------------------------------------将本地master分支内容以及版本信息推送到GitHub
 		git push origin dev-------------------------------------------------------------------将本地dev分支内容以及版本信息推送到GitHub
 		
 	公司：
 		新公司第一次获取代码：
 			方式一：
-				git clone https://github.com/WuPeiqi/greenlu.git------------------------------克隆
+				git clone https://github.com/yaosir0317/greenlu.git------------------------------克隆
 				git init 
 			方式二：			
-				git remote add origin https://github.com/WuPeiqi/greenlu.git------------------仓库地址
+				git remote add origin https://github.com/yaosir0317/greenlu.git------------------仓库地址
 				git pull origin master -------------------------------------------------------将master分支从Gitup上拉下来
 				git init 
 			方式三：
-				git remote add origin https://github.com/WuPeiqi/greenlu.git------------------仓库地址
+				git remote add origin https://github.com/yaosir0317/greenlu.git------------------仓库地址
 				git fetch origin master ------------------------------------------------------去仓库获取
 				git merge origin/master ------------------------------------------------------和网上下的master分支合并
 		
