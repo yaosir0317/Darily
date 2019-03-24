@@ -605,7 +605,7 @@ class StatisticsView(View):
         now = datetime.datetime.now().date()  # 当天的 年-月-日
         delta1 = datetime.timedelta(days=1)  # 前一天的 年-月-日
         delta2 = datetime.timedelta(weeks=1)  # 一周前的 年-月-日
-        delta3 = datetime.timedelta(weeks=4)  # 四周前的 年-月-日
+        delta3 = datetime.timedelta(weeks=26)  # 26周前的 年-月-日
 
         # 相应时间对应的过滤条件
         condition = {
@@ -700,3 +700,4 @@ def permission_tree(request):
     permissions = Permission.objects.values("pk", "title", "url", "menu__title", "menu__pk", "pid_id")
 
     return JsonResponse(list(permissions), safe=False)
+

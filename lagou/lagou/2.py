@@ -44,9 +44,7 @@ def get_data(obj):
             job_detail_list = detail_page.xpath("//*[@id='job_detail']/dd[2]/div//text()")
             job_detail = "\n".join(job_detail_list)
             ls = [company, a, job_name, tag, advantage, job_detail, "\n", "\n"]
-            with open("lagou.txt", "a") as f:
-                for item in ls:
-                    f.write(item)
+            print(a+"\n")
             sleep(2)
             obj.close()
             obj.switch_to_window(handles[0])
