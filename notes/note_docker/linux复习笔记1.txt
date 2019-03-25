@@ -1,0 +1,265 @@
+docker的三大概念
+
+镜像  class   person():
+			pass 
+
+容器 
+p1=person()
+p2=person()
+p2=person()
+p2=person()
+p2=person()
+p2=person()
+p2=person()
+p2=person()
+p2=person()
+p2=person()
+p2=person()
+
+
+仓库 
+dockerhub  镜像公网仓库
+
+
+
+1.基于镜像,运行出容器示例
+2.镜像文件,存储在镜像仓库中
+
+
+
+
+github  也有私有仓库的功能了,以前收费,限制面试
+
+gitlab 
+
+
+
+docker安装
+
+选择阿里云docker也是 c/s架构 
+yum install docker-server docker -y    
+
+
+配置docker加速器
+curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://f1361db2.m.daocloud.io
+
+编辑docker的配置文件,方可正确重启
+vim /etc/docker/daemon.json
+删除这个配置的逗号,和我一样就行
+{"registry-mirrors": ["http://f1361db2.m.daocloud.io"]}
+
+启动docker
+systemctl start docker 
+
+
+
+1.镜像的增删改查
+
+增: 
+获取一个镜像文件
+先查询
+docker search  hello-world  搜索一个镜像文件
+docker pull hello-world  从dockerhub下载一个镜像文件
+
+docker run  镜像文件id前三位   #运行一个镜像文件,产生一个容器示例
+
+docker run --name  指定容器的名字   镜像id或者镜像完整的名字 
+
+查:
+查询机器所有的镜像文件
+
+docker image ls  
+docker iamges  #这2条命令一个意思
+
+#删除镜像文件
+docker rmi  镜像id 
+
+
+#改
+导出docker镜像文件
+docker save 镜像名字  > /opt/centos.tar.gz  #导出docker镜像至本地
+
+#交互式的运行一个centos容器程序
+docker run -it  centos  /bin/bash   #交互式的启动一个centos容器
+	-i  交互式shell
+	-t  开启一个terminal终端
+	/bin/bash  指定linux  shell解释器 
+	
+docker run -it  ubuntu  /bin/bash   #交互式的启动一个ubuntu 容器
+
+
+#提交docker本地容器,产生新的镜像文件,这个文件就可以再导出,发给别人
+docker commit	容器id   新的镜像名
+
+
+#导入其他人给你发来的docker镜像
+docker load < /opt/s15-vim-centos.tar.gz
+
+#给镜像更改别名
+docker tag   当前镜像id   新的镜像名字 
+
+
+#运行一个后台进程的容器,也就是活着的容器
+docker run -d centos /bin/sh -c "while true;do echo "好嗨哦"; sleep 1;done"
+	-d 等于 daemonize   后台运行容器
+	/bin/sh -c "while true;do echo 好海哦; sleep 1;done"
+
+#查看这个容器内的好嗨哦
+docker logs  13b #查看容器内所有的日志
+docker logs -f   13b
+
+#进入容器空间内
+docker exec  -it 13b  /bin/bash
+
+#运行一个web应用容器,进行端口映射
+docker run -d -P training/webapp python app.py
+	-d 后台运行 
+	-P  随机端口映射 
+	-p  指定端口映射
+	
+
+docker run -d -p  8000:5000 training/webapp python app.py
+
+#查看容器内的端口映射
+docker port  容器id 
+
+#对docker容器的启停
+docker stop  容器id
+docker start 容器id 
+
+
+
+
+	
+2.对容器的增删改查
+
+查:
+查询容器运行记录
+
+docker ps   #查询正在运行的容器记录
+
+docker ps -a  #查询所有运行过的容器记录
+
+#删除容器记录
+
+
+docker rm  容器id
+docker rm  `docker ps -aq`   #一次性删除所有挂掉的容器记录 
+
+
+
+
+
+
+
+
+
+dockerfile的编写
+
+FROM scratch #制作base image 基础镜像，尽量使用官方的image作为base image
+FROM centos #使用base image
+FROM ubuntu:14.04 #带有tag的base image
+
+FROM 就是指定哪一个基础镜像 
+
+
+
+LABEL version=“1.0” #容器元信息，帮助信息，Metadata，类似于代码注释
+LABEL maintainer=“yc_uuu@163.com"
+
+
+
+
+#对于复杂的RUN命令，避免无用的分层，多条命令用反斜线换行，合成一条命令！
+RUN yum update && yum install -y vim \
+    Python-dev #反斜线换行
+	
+	
+
+	
+RUN /bin/bash -c "source $HOME/.bashrc;echo $HOME”
+
+
+
+
+
+WORKDIR /root #相当于linux的cd命令，改变目录，尽量使用绝对路径！！！不要用RUN cd
+WORKDIR /test #如果没有就自动创建
+WORKDIR demo #再进入demo文件夹
+RUN pwd     #打印结果应该是/test/demo
+
+
+#添加指令 ,把物理机本地的文件,添加到容器空间内 
+ADD and COPY 
+ADD hello /  #把本地文件添加到镜像中，吧本地的hello可执行文件拷贝到镜像的/目录
+ADD test.tar.gz /  #添加到根目录并解压
+
+ADD  本地文件     容器空间内的绝对路径
+
+
+
+
+
+WORKDIR /root
+ADD hello test/  #进入/root/ 添加hello可执行命令到test目录下，也就是/root/test/hello 一个绝对路径
+COPY hello test/  #等同于上述ADD效果
+
+
+
+
+ADD与COPY
+   - 优先使用COPY命令
+    -ADD除了COPY功能还有解压功能
+添加远程文件/目录使用curl或wget
+
+
+
+
+
+ENV #环境变量，尽可能使用ENV增加可维护性
+
+
+ENV MYSQL_VERSION  #设置一个mysql常量
+
+
+
+yuchao163 
+Zz2222zz  
+
+#推送本地镜像到  dockerhub中
+
+1.在要本地登录
+
+docker login 
+
+2.修改镜像的tag
+
+3.docker push  镜像id  #推送到公网dockerhub
+
+
+
+#运行一个私有的docker仓库
+
+1.第一条命令
+docker run -d \
+    -p 8000:5000 \
+    -v /opt/data/registry:/var/lib/registry \
+    registry
+	
+	-p端口映射
+	-v  数据卷挂载   ,访问物理机的 /opt/data/registry这个目录,也就映射到容器的/var/lib/registry 目录内容 
+	
+	
+2.修改docker的配置文件,支持非HTTPS的方式,推送到私有docker仓库
+
+	1.修改镜像的tag
+	docker tag fce  123.206.16.61:8000/s15-hello-docker
+	
+	2.
+	
+	
+
+
+
+
+
