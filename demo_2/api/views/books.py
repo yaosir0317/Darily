@@ -1,3 +1,5 @@
+from django.shortcuts import HttpResponse
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -21,3 +23,10 @@ class Bookview(APIView):
             return Response(vaildata.data)
         else:
             return Response(vaildata.errors)
+
+
+def test(request):
+    a = Book
+    print(a.objects.all())
+
+    return HttpResponse("ok")

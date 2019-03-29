@@ -1,0 +1,542 @@
+<div class="layui-side-scroll">
+  <div class="layui-logo" lay-href="{% url 'dashboard:home' %}">
+    <span>情报360 - 京尊</span>
+  </div>
+
+  <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
+      lay-filter="layadmin-system-side-menu">
+    <li data-name="dashboard" class="layui-nav-item layui-nav-itemed">
+      <a href="javascript:;" lay-tips="京尊大盘" lay-direction="2">
+        <i class="layui-icon layui-icon-app" style="font-size: 18px; "></i>
+        <cite>京尊大盘</cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="{% url 'dashboard:home' %}" class="layui-this">
+          <i class="layui-icon layui-icon-read" style="font-size: 18px; margin-left: 20px"></i>
+          <a lay-href="{% url 'dashboard:home' %}" style="margin-left: 20px">京尊控制台</a>
+        </dd>
+        <dd data-name="console">
+          <i class="layui-icon layui-icon-tabs" style="font-size: 18px; margin-left: 20px;"></i>
+          <a lay-href="index.html" style="margin-left: 20px">京尊大屏</a>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="rank" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="京尊定位" lay-direction="2">
+        <i class="layui-icon layui-icon-location" style="font-size: 18px;"></i>
+        <cite>
+          京尊定位
+          <span class="layui-badge">新</span>
+        </cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="">
+          <i class="layui-icon layui-icon-fire" style="font-size: 18px; margin-left: 10px"></i>
+          <a lay-href="" style="margin-left: 10px">
+            关键词全店
+            <span class="layui-badge layui-bg-green">可用</span>
+          </a>
+        </dd>
+        <dd data-name="progress">
+          <i class="layui-icon layui-icon-dollar" style="font-size: 18px; margin-left: 10px"></i>
+          <a lay-href="" style="margin-left: 10px">
+            关键词单品
+            <span class="layui-badge layui-bg-orange">待更</span>
+          </a>
+        </dd>
+        <dd data-name="progress">
+          <i class="layui-icon layui-icon-rmb" style="font-size: 18px; margin-left: 10px"></i>
+          <a lay-href="" style="margin-left: 10px">
+            关键词邻近
+            <span class="layui-badge layui-bg-orange">待更</span>
+          </a>
+        </dd>
+        <dd data-name="progress">
+          <i class="layui-icon layui-icon-diamond" style="font-size: 18px; margin-left: 10px"></i>
+          <a lay-href="" style="margin-left: 10px">
+            关键词竞品
+            <span class="layui-badge layui-bg-orange">待更</span>
+          </a>
+        </dd>
+        <dd data-name="progress">
+          <i class="layui-icon layui-icon-headset" style="font-size: 18px; margin-left: 10px"></i>
+          <a lay-href="" style="margin-left: 10px">
+            智能快车
+            <span class="layui-badge layui-bg-orange">待更</span>
+          </a>
+        </dd>
+        <dd data-name="progress">
+          <i class="layui-icon layui-icon-unlink" style="font-size: 18px; margin-left: 10px"></i>
+          <a lay-href="" style="margin-left: 10px">
+            类目全店
+            <span class="layui-badge layui-bg-orange">待更</span>
+          </a>
+        </dd>
+        <dd data-name="progress">
+          <i class="layui-icon layui-icon-chart" style="font-size: 18px; margin-left: 10px"></i>
+          <a lay-href="" style="margin-left: 10px">
+            类目单品
+            <span class="layui-badge layui-bg-orange">待更</span>
+          </a>
+        </dd>
+        <dd data-name="progress">
+          <i class="layui-icon layui-icon-video" style="font-size: 18px; margin-left: 10px"></i>
+          <a lay-href="" style="margin-left: 10px">
+            关键词邻近
+            <span class="layui-badge layui-bg-orange">待更</span>
+          </a>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="monitor" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="京尊监控" lay-direction="2">
+        <i class="layui-icon layui-icon-engine" style="font-size: 18px;"></i>
+        <cite>京尊监控</cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="https://818ps.com">
+          <a lay-href="https://818ps.com">监控中心</a>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="compete" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="京尊竞品" lay-direction="2">
+        <i class="layui-icon layui-icon-chart-screen" style="font-size: 18px;"></i>
+        <cite>京尊竞品</cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="https://818ps.com">
+          <a lay-href="https://818ps.com">竞品中心</a>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="tuguaishou" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="图怪兽" lay-direction="2">
+        <i class="layui-icon layui-icon-404" style="font-size: 18px;"></i>
+        <cite>
+          图怪兽
+          <span class="layui-badge">新</span>
+        </cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="https://818ps.com/?user_source=r275148">
+          <a lay-href="https://818ps.com/?user_source=r275148">图怪兽</a>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="movehouse" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="京尊搬家" lay-direction="2">
+        <i class="layui-icon layui-icon-cart" style="font-size: 18px;"></i>
+        <cite>京尊搬家</cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="child">
+          <a href="javascript:;">商品复制</a>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">替换复制</a>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">复制历史</a>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">图片复制</a>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">图片空间清理</a>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">暂存描述管理</a>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">商品源同步</a>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">精品商品采集</a>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">同款商品查询</a>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="data-change" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="流量 · 转化" lay-direction="2">
+        <i class="layui-icon layui-icon-water" style="font-size: 18px;"></i>
+        <cite>流量 · 转化</cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="child">
+          <a href="javascript:;">行业数据</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/system/website.html">行业关键词</a></dd>
+            <dd><a lay-href="set/system/email.html">行业榜单</a></dd>
+            <dd><a lay-href="set/system/website.html">行业价格</a></dd>
+            <dd><a lay-href="set/system/email.html">我的行业地位</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">实时数据</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">实时流量</a></dd>
+            <dd><a lay-href="set/user/password.html">实时商品分析</a></dd>
+            <dd><a lay-href="set/user/password.html">实时到店词</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">流量分析</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">关键词分析</a></dd>
+            <dd><a lay-href="set/user/password.html">平台</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">商品分析</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">商品360°分析</a></dd>
+            <dd><a lay-href="set/user/password.html">购物车分析</a></dd>
+            <dd><a lay-href="set/user/password.html">确认收货分析</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">标题优化</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">商品列表</a></dd>
+            <dd><a lay-href="set/user/password.html">搜索词库</a></dd>
+            <dd><a lay-href="set/user/password.html">我的收藏</a></dd>
+            <dd><a lay-href="set/user/password.html">优化历史</a></dd>
+          </dl>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="打折促销工具" lay-direction="2">
+        <i class="layui-icon layui-icon-util" style="font-size: 18px;"></i>
+        <cite>打折促销工具</cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="child">
+          <a href="javascript:;">创建促销活动</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/system/website.html">单品促销</a></dd>
+            <dd><a lay-href="set/system/email.html">全店单品促销</a></dd>
+            <dd><a lay-href="set/system/website.html">满减促销</a></dd>
+            <dd><a lay-href="set/system/email.html">赠品促销</a></dd>
+            <dd><a lay-href="set/system/email.html">套装促销</a></dd>
+            <dd><a lay-href="set/system/email.html">满减送促销</a></dd>
+            <dd><a lay-href="set/system/email.html">查看历史促销</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">拼购活动</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">创建拼购活动</a></dd>
+            <dd><a lay-href="set/user/password.html">拼购活动历史</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">营销方案</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">数据分析</a></dd>
+            <dd><a lay-href="set/user/password.html">购物车营销</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">创建优惠券</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">店铺券</a></dd>
+            <dd><a lay-href="set/user/password.html">商品券</a></dd>
+            <dd><a lay-href="set/user/password.html">历史优惠券</a></dd>
+          </dl>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="discount" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="商品工具" lay-direction="2">
+        <i class="layui-icon layui-icon-set" style="font-size: 18px;"></i>
+        <cite>商品工具</cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="child">
+          <a href="javascript:;">一键手机详情</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/system/website.html">手机详情</a></dd>
+            <dd><a lay-href="set/system/email.html">批量详情头尾</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">移动营销工具</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">全店商品导出</a></dd>
+            <dd><a lay-href="set/user/password.html">无线推广链接</a></dd>
+            <dd><a lay-href="set/user/password.html">SKU提取工具</a></dd>
+            <dd><a lay-href="set/user/password.html">二维码工具</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">透明图管理</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">透明图管理</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">图片工具</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">在线抠图</a></dd>
+            <dd><a lay-href="set/user/password.html">抠图历史</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">主图视频</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">创建主图视频</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">白底图管理</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">白底图管理</a></dd>
+          </dl>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="discount" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="关联推荐" lay-direction="2">
+        <i class="layui-icon layui-icon-template-1" style="font-size: 18px;"></i>
+        <cite>关联推荐</cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="child">
+          <a href="javascript:;">投放管理</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/system/website.html">关联版式投放</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">手机端</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">关联版式手机端</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">电脑端</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">商品推荐模板</a></dd>
+            <dd><a lay-href="set/user/info.html">商品团购模板</a></dd>
+            <dd><a lay-href="set/user/info.html">好评推荐模板</a></dd>
+            <dd><a lay-href="set/user/info.html">搭配套餐模板</a></dd>
+            <dd><a lay-href="set/user/info.html">店内分类模板</a></dd>
+            <dd><a lay-href="set/user/info.html">优惠券模板</a></dd>
+            <dd><a lay-href="set/user/info.html">添加热区图片</a></dd>
+            <dd><a lay-href="set/user/info.html">添加自定义内容</a></dd>
+            <dd><a lay-href="set/user/info.html">创建海报</a></dd>
+          </dl>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="discount" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="批量工具" lay-direction="2">
+        <i class="layui-icon layui-icon-templeate-1" style="font-size: 18px;"></i>
+        <cite>批量工具</cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="child">
+          <a href="javascript:;">商品管理</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/system/website.html">商品编辑</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">批量修改</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">批量修改</a></dd>
+            <dd><a lay-href="set/user/info.html">修改历史</a></dd>
+            <dd><a lay-href="set/user/info.html">拼购历史</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">京东分类迁移</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">创建迁移任务</a></dd>
+            <dd><a lay-href="set/user/info.html">迁移历史</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">批量水印</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">主图水印</a></dd>
+            <dd><a lay-href="set/user/info.html">详情图水印</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">滞销清理</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">商品清理</a></dd>
+            <dd><a lay-href="set/user/info.html">清理历史</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">库存管理</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">库存预警</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">商品检测</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">未设置广告词</a></dd>
+            <dd><a lay-href="set/user/info.html">属性错误</a></dd>
+            <dd><a lay-href="set/user/info.html">重复标题货号检测</a></dd>
+          </dl>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="discount" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="会员营销" lay-direction="2">
+        <i class="layui-icon layui-icon-user" style="font-size: 18px;"></i>
+        <cite>会员营销</cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="child">
+          <a href="javascript:;">短信群发</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/system/website.html">会员筛选发送</a></dd>
+            <dd><a lay-href="set/system/website.html">指定号码发送</a></dd>
+            <dd><a lay-href="set/system/website.html">订单筛选发送</a></dd>
+            <dd><a lay-href="set/system/website.html">短信发送任务</a></dd>
+            <dd><a lay-href="set/system/website.html">短信发送日志</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">自动短信</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">超级催付</a></dd>
+            <dd><a lay-href="set/user/info.html">货到付款确认</a></dd>
+            <dd><a lay-href="set/user/info.html">已付款关怀</a></dd>
+            <dd><a lay-href="set/system/website.html">智能凑单</a></dd>
+            <dd><a lay-href="set/system/website.html">发货提醒</a></dd>
+            <dd><a lay-href="set/system/website.html">退单关怀</a></dd>
+            <dd><a lay-href="set/system/website.html">确认收货提醒</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">会员管理</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">会员列表</a></dd>
+            <dd><a lay-href="set/user/info.html">会员等级</a></dd>
+            <dd><a lay-href="set/system/website.html">黑名单管理</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">系统设置</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">信息设置</a></dd>
+          </dl>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="discount" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="打单·发货·预警" lay-direction="2">
+        <i class="layui-icon layui-icon-tabs" style="font-size: 18px;"></i>
+        <cite>打单·发货·预警</cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="child">
+          <a href="javascript:;">打单发货</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/system/website.html">待发货打印</a></dd>
+            <dd><a lay-href="set/system/website.html">已发货打印</a></dd>
+            <dd><a lay-href="set/system/website.html">导入发货</a></dd>
+            <dd><a lay-href="set/system/website.html">面单回放</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">自由打印</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">单条打印</a></dd>
+            <dd><a lay-href="set/user/info.html">批量打印</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">打印设置</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">基础设置</a></dd>
+            <dd><a lay-href="set/user/info.html">发货地址</a></dd>
+            <dd><a lay-href="set/system/website.html">快递单模板</a></dd>
+            <dd><a lay-href="set/system/website.html">发货单模板</a></dd>
+            <dd><a lay-href="set/system/website.html">物流公司管理</a></dd>
+            <dd><a lay-href="set/system/website.html">商品简称管理</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">历史记录</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">快递单历史</a></dd>
+            <dd><a lay-href="set/system/website.html">发货单历史</a></dd>
+          </dl>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="discount" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="评价·售后" lay-direction="2">
+        <i class="layui-icon layui-icon-face-surprised" style="font-size: 18px;"></i>
+        <cite>评价·售后</cite>
+      </a>
+      <dl class="layui-nav-child">
+        <dd data-name="child">
+          <a href="javascript:;">好评工作台</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/system/website.html">自动崔评</a></dd>
+            <dd><a lay-href="set/system/website.html">手动崔评</a></dd>
+            <dd><a lay-href="set/system/website.html">崔评统计</a></dd>
+            <dd><a lay-href="set/system/website.html">评价回馈</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">中差评工作台</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">单条打印</a></dd>
+            <dd><a lay-href="set/user/info.html">批量打印</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">打印设置</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">卖家提醒</a></dd>
+            <dd><a lay-href="set/user/info.html">买家安抚</a></dd>
+            <dd><a lay-href="set/system/website.html">中差评管理</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">评价回复</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">自动回复</a></dd>
+            <dd><a lay-href="set/system/website.html">手动回复</a></dd>
+            <dd><a lay-href="set/system/website.html">批量回复</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">评价分析</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">删评监控</a></dd>
+            <dd><a lay-href="set/system/website.html">全店商品评价</a></dd>
+            <dd><a lay-href="set/system/website.html">店铺分析</a></dd>
+            <dd><a lay-href="set/system/website.html">DSR趋势</a></dd>
+          </dl>
+        </dd>
+        <dd data-name="child">
+          <a href="javascript:;">售后中心</a>
+          <dl class="layui-nav-child">
+            <dd><a lay-href="set/user/info.html">自动审核退款</a></dd>
+            <dd><a lay-href="set/system/website.html">手动审核退款</a></dd>
+          </dl>
+        </dd>
+      </dl>
+    </li>
+    <li data-name="discount" class="layui-nav-item">
+      <a href="javascript:;" lay-tips="店群管理" lay-direction="2">
+        <i class="layui-icon layui-icon-chat" style="font-size: 18px;"></i>
+        <cite>店群管理</cite>
+      </a>
+    </li>
+  </ul>
+</div>

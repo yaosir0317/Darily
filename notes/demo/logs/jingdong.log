@@ -1,0 +1,215 @@
+2019-03-27 09:30:37 [basehttp INFO] "GET / HTTP/1.1" 302 0
+2019-03-27 09:30:37 [basehttp INFO] "GET /user/account_login?next=/ HTTP/1.1" 200 2619
+2019-03-27 09:30:50 [basehttp INFO] "GET /static/layuiadmin/layui/css/modules/layer/default/loading-2.gif HTTP/1.1" 200 1787
+2019-03-27 09:30:50 [basehttp INFO] "POST /user/account_login HTTP/1.1" 200 52
+2019-03-27 09:30:50 [basehttp INFO] "GET /static/layuiadmin/layui/css/modules/layer/default/icon.png HTTP/1.1" 200 11493
+2019-03-27 09:30:52 [basehttp INFO] "GET / HTTP/1.1" 200 28485
+2019-03-27 09:30:52 [basehttp INFO] "GET /home.html HTTP/1.1" 200 3589
+2019-03-27 09:31:05 [log WARNING] Not Found: /set/system/website.html
+2019-03-27 09:31:05 [basehttp WARNING] "GET /set/system/website.html HTTP/1.1" 404 3175
+2019-03-27 09:31:08 [log WARNING] Not Found: /set/user/info.html
+2019-03-27 09:31:08 [basehttp WARNING] "GET /set/user/info.html HTTP/1.1" 404 4861
+2019-03-27 09:56:08 [basehttp INFO] "GET / HTTP/1.1" 200 28485
+2019-03-27 09:56:08 [basehttp INFO] "GET /home.html HTTP/1.1" 200 3589
+2019-03-27 09:56:11 [log WARNING] Not Found: /index.html
+2019-03-27 09:56:11 [basehttp WARNING] "GET /index.html HTTP/1.1" 404 3136
+2019-03-27 09:56:26 [log WARNING] Not Found: /set/system/website.html
+2019-03-27 09:56:26 [basehttp WARNING] "GET /set/system/website.html HTTP/1.1" 404 3175
+2019-03-29 11:12:40 [basehttp INFO] "GET / HTTP/1.1" 200 28485
+2019-03-29 11:12:40 [basehttp INFO] "GET /static/layuiadmin//lib/index.js HTTP/1.1" 200 1148
+2019-03-29 11:12:41 [basehttp INFO] "GET /home.html HTTP/1.1" 200 3589
+2019-03-29 11:12:41 [basehttp INFO] "GET /static/layuiadmin/config.js HTTP/1.1" 200 3805
+2019-03-29 11:12:41 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/laytpl.js HTTP/1.1" 200 1837
+2019-03-29 11:12:42 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/element.js HTTP/1.1" 200 7265
+2019-03-29 11:12:42 [basehttp INFO] "GET /static/layuiadmin/layui/css/modules/layer/default/layer.css?v=3.1.1 HTTP/1.1" 200 14367
+2019-03-29 11:12:42 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/jquery.js HTTP/1.1" 200 97652
+2019-03-29 11:12:42 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/util.js HTTP/1.1" 200 3459
+2019-03-29 11:12:42 [basehttp INFO] "GET /static/layuiadmin/lib/admin.js HTTP/1.1" 200 11674
+2019-03-29 11:12:42 [basehttp INFO] "GET /static/layuiadmin/lib/view.js HTTP/1.1" 200 4475
+2019-03-29 11:12:42 [basehttp INFO] "GET /static/layuiadmin/modules/common.js HTTP/1.1" 200 365
+2019-03-29 11:12:55 [log WARNING] Not Found: /set/user/info.html
+2019-03-29 11:12:55 [basehttp WARNING] "GET /set/user/info.html HTTP/1.1" 404 4861
+2019-03-29 11:14:00 [log WARNING] Not Found: /index.html
+2019-03-29 11:14:00 [basehttp WARNING] "GET /index.html HTTP/1.1" 404 3136
+2019-03-29 11:14:16 [log WARNING] Not Found: /set/user/info.html
+2019-03-29 11:14:16 [basehttp WARNING] "GET /set/user/info.html HTTP/1.1" 404 4861
+2019-03-29 11:14:31 [log WARNING] Not Found: /set/system/website.html
+2019-03-29 11:14:31 [basehttp WARNING] "GET /set/system/website.html HTTP/1.1" 404 3175
+2019-03-29 16:09:27 [basehttp INFO] "GET / HTTP/1.1" 302 0
+2019-03-29 16:09:27 [basehttp INFO] "GET /user/account_login?next=/ HTTP/1.1" 200 2619
+2019-03-29 16:09:27 [basehttp INFO] "GET /static/layuiadmin/layui/layui.js HTTP/1.1" 200 6668
+2019-03-29 16:09:27 [basehttp INFO] "GET /static/layuiadmin/layui/css/sign.css HTTP/1.1" 200 2171
+2019-03-29 16:09:27 [basehttp INFO] "GET /static/layuiadmin/layui/css/layui.css HTTP/1.1" 200 69500
+2019-03-29 16:09:28 [basehttp INFO] "GET /static/layuiadmin/layui/font/iconfont.woff HTTP/1.1" 200 26744
+2019-03-29 16:09:28 [basehttp INFO] "GET /static/layuiadmin/modules/login.js HTTP/1.1" 200 2651
+2019-03-29 16:09:28 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/layer.js HTTP/1.1" 200 22042
+2019-03-29 16:09:28 [basehttp INFO] "GET /static/layuiadmin/layui/css/modules/layer/default/layer.css?v=3.1.1 HTTP/1.1" 304 0
+2019-03-29 16:09:28 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/jquery.js HTTP/1.1" 304 0
+2019-03-29 16:09:28 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/form.js HTTP/1.1" 200 9260
+2019-03-29 16:09:29 [basehttp INFO] "GET /static/layuiadmin/modules/tips.js HTTP/1.1" 200 988
+2019-03-29 16:09:29 [log WARNING] Not Found: /favicon.ico
+2019-03-29 16:09:29 [basehttp WARNING] "GET /favicon.ico HTTP/1.1" 404 3139
+2019-03-29 16:09:41 [basehttp INFO] "GET /static/layuiadmin/layui/css/modules/layer/default/loading-2.gif HTTP/1.1" 200 1787
+2019-03-29 16:09:41 [basehttp INFO] "POST /user/account_login HTTP/1.1" 200 83
+2019-03-29 16:09:41 [basehttp INFO] "GET /static/layuiadmin/layui/css/modules/layer/default/icon.png HTTP/1.1" 200 11493
+2019-03-29 16:09:44 [basehttp INFO] "GET /user/register.html HTTP/1.1" 200 26424
+2019-03-29 16:09:44 [basehttp INFO] "GET /static/layuiadmin/modules/register.js HTTP/1.1" 200 4750
+2019-03-29 16:09:49 [basehttp INFO] "POST /user/code HTTP/1.1" 201 67
+2019-03-29 16:10:07 [basehttp INFO] "POST /user/user_create HTTP/1.1" 200 262
+2019-03-29 16:10:48 [log ERROR] Internal Server Error: /user/jd_redirect_url
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\connection.py", line 493, in connect
+    sock = self._connect()
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\connection.py", line 550, in _connect
+    raise err
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\connection.py", line 538, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\client.py", line 2952, in _execute
+    return command(*args)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\connection.py", line 619, in send_command
+    self.send_packed_command(self.pack_command(*args))
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\connection.py", line 594, in send_packed_command
+    self.connect()
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\connection.py", line 498, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 10061 connecting to localhost:6379. 由于目标计算机积极拒绝，无法连接。.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\connection.py", line 493, in connect
+    sock = self._connect()
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\connection.py", line 550, in _connect
+    raise err
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\connection.py", line 538, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\kombu\connection.py", line 414, in _reraise_as_library_errors
+    yield
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\celery\app\base.py", line 744, in send_task
+    self.backend.on_task_call(P, task_id)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\celery\backends\redis.py", line 265, in on_task_call
+    self.result_consumer.consume_from(task_id)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\celery\backends\redis.py", line 125, in consume_from
+    return self.start(task_id)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\celery\backends\redis.py", line 107, in start
+    self._consume_from(initial_task_id)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\celery\backends\redis.py", line 132, in _consume_from
+    self._pubsub.subscribe(key)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\client.py", line 3026, in subscribe
+    ret_val = self.execute_command('SUBSCRIBE', *iterkeys(new_channels))
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\client.py", line 2948, in execute_command
+    self._execute(connection, connection.send_command, *args)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\client.py", line 2959, in _execute
+    connection.connect()
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\connection.py", line 498, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 10061 connecting to localhost:6379. 由于目标计算机积极拒绝，无法连接。.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\django\views\generic\base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\python-file\项目实战\jd_sku_tools\apps\jd_user\views.py", line 107, in get
+    task_product_info.apply_async(queue='product_router')
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\celery\app\task.py", line 535, in apply_async
+    **options
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\celery\app\base.py", line 745, in send_task
+    amqp.send_task_message(P, name, message, **options)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\contextlib.py", line 99, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\kombu\connection.py", line 419, in _reraise_as_library_errors
+    sys.exc_info()[2])
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\vine\five.py", line 194, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\kombu\connection.py", line 414, in _reraise_as_library_errors
+    yield
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\celery\app\base.py", line 744, in send_task
+    self.backend.on_task_call(P, task_id)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\celery\backends\redis.py", line 265, in on_task_call
+    self.result_consumer.consume_from(task_id)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\celery\backends\redis.py", line 125, in consume_from
+    return self.start(task_id)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\celery\backends\redis.py", line 107, in start
+    self._consume_from(initial_task_id)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\celery\backends\redis.py", line 132, in _consume_from
+    self._pubsub.subscribe(key)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\client.py", line 3026, in subscribe
+    ret_val = self.execute_command('SUBSCRIBE', *iterkeys(new_channels))
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\client.py", line 2948, in execute_command
+    self._execute(connection, connection.send_command, *args)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\client.py", line 2959, in _execute
+    connection.connect()
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\redis\connection.py", line 498, in connect
+    raise ConnectionError(self._error_message(e))
+kombu.exceptions.OperationalError: Error 10061 connecting to localhost:6379. 由于目标计算机积极拒绝，无法连接。.
+2019-03-29 16:10:48 [basehttp ERROR] "GET /user/jd_redirect_url?state=username%3A13183355361&code=nCw9dK HTTP/1.1" 500 269278
+2019-03-29 16:11:08 [log ERROR] Internal Server Error: /user/jd_redirect_url
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\site-packages\django\views\generic\base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\python-file\项目实战\jd_sku_tools\apps\jd_user\views.py", line 100, in get
+    shop, _ = self.get_shop_info(jd_auth_dict['access_token'])
+TypeError: string indices must be integers
+2019-03-29 16:11:08 [basehttp ERROR] "GET /user/jd_redirect_url?state=username%3A13183355361&code=nCw9dK HTTP/1.1" 500 83770
+2019-03-29 16:11:22 [basehttp INFO] "GET / HTTP/1.1" 302 0
+2019-03-29 16:11:23 [basehttp INFO] "GET /user/account_login?next=/ HTTP/1.1" 200 2619
+2019-03-29 16:11:25 [log WARNING] Not Found: /favicon.ico
+2019-03-29 16:11:25 [basehttp WARNING] "GET /favicon.ico HTTP/1.1" 404 3139
+2019-03-29 16:11:48 [basehttp INFO] "GET /static/layuiadmin/layui/css/modules/layer/default/loading-2.gif HTTP/1.1" 200 1787
+2019-03-29 16:11:49 [basehttp INFO] "POST /user/account_login HTTP/1.1" 200 52
+2019-03-29 16:11:49 [basehttp INFO] "GET /static/layuiadmin/layui/css/modules/layer/default/icon.png HTTP/1.1" 200 11493
+2019-03-29 16:11:50 [basehttp INFO] "GET / HTTP/1.1" 200 28485
+2019-03-29 16:11:50 [basehttp INFO] "GET /static/layuiadmin/layui/layui.js HTTP/1.1" 200 6668
+2019-03-29 16:11:50 [basehttp INFO] "GET /static/layuiadmin/style/admin.css HTTP/1.1" 200 21080
+2019-03-29 16:11:50 [basehttp INFO] "GET /static/layuiadmin/layui/css/layui.css HTTP/1.1" 200 69500
+2019-03-29 16:11:50 [basehttp INFO] "GET /static/layuiadmin//lib/index.js HTTP/1.1" 304 0
+2019-03-29 16:11:50 [basehttp INFO] "GET /static/layuiadmin/layui/font/iconfont.woff HTTP/1.1" 200 26744
+2019-03-29 16:11:50 [basehttp INFO] "GET /home.html HTTP/1.1" 200 3589
+2019-03-29 16:11:50 [basehttp INFO] "GET /static/layuiadmin/config.js HTTP/1.1" 304 0
+2019-03-29 16:11:50 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/laytpl.js HTTP/1.1" 304 0
+2019-03-29 16:11:50 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/layer.js HTTP/1.1" 200 22042
+2019-03-29 16:11:50 [basehttp INFO] "GET /static/js/jquery.pin.min.js HTTP/1.1" 200 5658
+2019-03-29 16:11:50 [basehttp INFO] "GET /static/js/underscore-1.8.3.min.js HTTP/1.1" 200 16454
+2019-03-29 16:11:50 [basehttp INFO] "GET /static/js/bootstrap.3.3.7.min.js HTTP/1.1" 200 37051
+2019-03-29 16:11:51 [basehttp INFO] "GET /static/js/jquery.slimscroll.min.1.3.3.js HTTP/1.1" 200 4694
+2019-03-29 16:11:51 [basehttp INFO] "GET /static/js/jquery-1.12.4.min.js HTTP/1.1" 200 97168
+2019-03-29 16:11:51 [basehttp INFO] "GET /static/js/dzz/common.js HTTP/1.1" 200 2130
+2019-03-29 16:11:51 [basehttp INFO] "GET /static/layuiadmin/layui/css/modules/layer/default/layer.css?v=3.1.1 HTTP/1.1" 200 14367
+2019-03-29 16:11:51 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/jquery.js HTTP/1.1" 200 97652
+2019-03-29 16:11:51 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/theme/default/layer.css?v=3.1.1 HTTP/1.1" 200 14367
+2019-03-29 16:11:51 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/element.js HTTP/1.1" 304 0
+2019-03-29 16:11:51 [basehttp INFO] "GET /static/layuiadmin/layui/lay/modules/util.js HTTP/1.1" 304 0
+2019-03-29 16:11:51 [basehttp INFO] "GET /static/layuiadmin/lib/admin.js HTTP/1.1" 304 0
+2019-03-29 16:11:52 [basehttp INFO] "GET /static/layuiadmin/lib/view.js HTTP/1.1" 304 0
+2019-03-29 16:11:52 [basehttp INFO] "GET /static/layuiadmin/modules/common.js HTTP/1.1" 304 0
+2019-03-29 16:12:04 [log WARNING] Not Found: /set/system/website.html
+2019-03-29 16:12:04 [basehttp WARNING] "GET /set/system/website.html HTTP/1.1" 404 3175
+2019-03-29 16:16:56 [log WARNING] Not Found: /set/user/info.html
+2019-03-29 16:16:56 [basehttp WARNING] "GET /set/user/info.html HTTP/1.1" 404 4861

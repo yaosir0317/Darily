@@ -1,0 +1,113 @@
+1. 单一任务状态
+
+    1）SUCCESS
+
+    2) FAILURE
+
+    3) REVOKED
+
+    4) STARTED
+
+    5) PENDING
+
+    6) 自定义任务进度
+
+
+2. 组任务状态
+
+    web_task, wx_task, wap_task, qq_task = group_task.children[0]
+
+    1）SUCCESS
+
+        A. web_task.info is not None
+
+            a. web_task.state is SUCCESS ---> 任务成功，任务进度实时更新
+
+                return {'status_web': 'success', 'process_web': web_task.info.get('PROCESS')}
+
+            b. web_task.state is FAILURE ---> 任务失败，task.info is None 则进度默认0
+
+                return {'status_web': 'fail', 'process_web': 0}
+
+            c. web_task.state is PENDING ---> 任务等待中，task.info is None 则进度默认0
+
+                return {'status_web': 'process', 'process_web': 0}
+
+            d. web_task.state is STARTED ---> 任务开始，task.info is None 则进度默认0
+
+                return {'status_web': 'process', 'process_web': 0}
+
+            # 以下任务状态暂时不需要考虑，在父级组任务中处理
+
+            e. web_task.state is REVOKED ---> 取消任务：<1>杀死进程<2>保留后台进程，任务继续完成
+
+                return {'status_web': 'revoked', 'process_web': 0}
+
+            f. web_task.state is DELETED ---> 删除任务：数据任务标识，前端显示删除状态
+
+                return {'status_web': 'deleted', 'process_web': 0}
+
+        A-0. 以上任务状态归纳
+
+            a. web_task.state is SUCCESS ---> {'status_web': 'success', 'process_web': web_task.info.get('PROCESS')}
+
+            b. web_task.state is FAILURE ---> {'status_web': 'fail', 'process_web': 0}
+
+            c. web_task.state in ['PENDING', 'STARTED', ...] ---> {'status_web': 'process', 'process_web': 0}
+
+        A-1. web_task.info is None ---> celery任务延迟导致或巡检快于任务处理
+
+            return {'status_web': 'process', 'process_web': 0}
+
+        # 以下类型的任务状态同上
+
+        B. wx_task.info is not None
+
+        C. wap_task.info is not None
+
+        D. qq_task.info is not None
+
+    2) FAILURE
+
+        return {
+                'status_web': 'fail', 'process_web': 0,
+                'status_wx': 'fail', 'process_wx': 0,
+                'status_wap': 'fail', 'process_wap': 0,
+                'status_qq': 'fail', 'process_qq': 0
+            }
+
+    ======================================================
+    # 以下所有任务状态全部作为process处理，进度均为0
+
+        return {
+                'status_web': 'process', 'process_web': 0,
+                'status_wx': 'process', 'process_wx': 0,
+                'status_wap': 'process', 'process_wap': 0,
+                'status_qq': 'process', 'process_qq': 0
+            }
+
+    3) STARTED
+
+    4) PENDING
+    ======================================================
+
+    5) REVOKED ---> 取消任务
+
+        return {
+                'status_web': 'cancel', 'process_web': 0,
+                'status_wx': 'cancel', 'process_wx': 0,
+                'status_wap': 'cancel', 'process_wap': 0,
+                'status_qq': 'cancel', 'process_qq': 0
+            }
+
+    6) DELETED ---> 删除任务
+
+        return {
+                'status_web': 'delete', 'process_web': 0,
+                'status_wx': 'delete', 'process_wx': 0,
+                'status_wap': 'delete', 'process_wap': 0,
+                'status_qq': 'delete', 'process_qq': 0
+            }
+
+    任务状态汇总判断：
+

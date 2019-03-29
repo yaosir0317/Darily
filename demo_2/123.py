@@ -3,6 +3,7 @@ from functools import reduce
 import time
 import copy
 import os
+import random
 
 
 def outer(func):
@@ -27,6 +28,7 @@ def outer(func):
 
     return inner
 
+
 @outer
 def foo(a):
     print(a)
@@ -42,13 +44,13 @@ def isPalindromeself(num):
         return False
     half = 0
     while half < num:
-        half = half*10 + num%10
-        num = num//10
+        half = half * 10 + num % 10
+        num = num // 10
         print(half, num)
-    return num == half or num == half//10
+    return num == half or num == half // 10
 
 
-ls = [[1,2,3],[4,5,6],[7,8,9]]
+ls = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 ret = []
 for i in ls:
     ret += i
@@ -98,6 +100,8 @@ def outer1(func):
 
 
 v = "10.3.9.12"
+
+
 def func(ip):
     ret = ""
     for i in v.split("."):
@@ -105,4 +109,126 @@ def func(ip):
     return int(ret, 2)
 
 
-print(reduce(lambda x, y: x*y, range(1, 4)))
+def dec1(func):
+
+    def one():
+        print("2222")
+        func()
+        print("3333")
+
+
+    return one
+
+
+def dec2(func):
+
+    def two():
+        print("1111")
+        func()
+        print("4444")
+
+    return two
+
+
+@dec1
+@dec2
+def test():
+    print("test test")
+
+
+def file_all(filepath, n):
+    file_list = os.listdir(filepath)
+    for item in file_list:
+        cur_file = os.path.join(filepath, item)
+        if os.path.isdir(cur_file):
+            print("\t"*n, item)
+            file_all(cur_file, n+1)
+        else:
+            print("\t"*n, item)
+
+
+ls = list(range(10000))
+# random.shuffle(ls)
+
+
+def bubble_sort(data):
+    for i in range(len(data)-1):
+        exchange = False
+        for j in range(len(data)-1-i):
+            if data[j] > data[j+1]:
+                data[j], data[j+1] = data[j+1], data[j]
+                exchange = True
+        if not exchange:
+            break
+
+
+def select_sort(data):
+    for i in range(len(data)-1):
+        min_index = i
+        for j in range(i+1, len(data)):
+            if data[min_index] > data[j]:
+                min_index = j
+        if min_index != i:
+            data[min_index], data[i] = data[i], data[min_index]
+
+
+def insert_sort(data):
+    for i in range(1, len(data)):
+        select = data[i]
+        b_index = i - 1
+        while b_index >= 0 and data[b_index] > select:
+            data[b_index+1] = data[b_index]
+            b_index -= 1
+        data[b_index+1] = select
+
+
+def quick_sort(data):
+    if len(data) < 2:
+        return data
+    mid = data[0]
+    larger = [i for i in data[1:] if i > mid]
+    smaller = [i for i in data[1:] if i <= mid]
+    return quick_sort(smaller) + [mid] + quick_sort(larger)
+
+
+def bin_search(data, num):
+    left = 0
+    right = len(data)
+    while left <= right:
+        mid = (right + left) // 2
+        if data[mid] == num:
+            return mid
+        elif data[mid] > num:
+            right = mid - 1
+        else:
+            left = left + 1
+    return -1
+
+
+class A(object):
+    def __getattr__(self, item):
+        print(item)
+
+
+# from flask import Flask, views
+#
+# app = Flask(__name__)
+#
+#
+# class Login(views.MethodView):
+#     def get(self,args):
+#         args.method
+#         return "666"
+#
+#     def post(self,args):
+#         return "888"
+#
+#     def look(self,args):
+#         return "999"
+#
+# app.add_url_rule("/login/<args>",endpoint=None,view_func=Login.as_view(name='login'))
+# app.__call__
+
+with open(r"D:\python-file\VUE\Daily\demo_2\rbac\models.py", "r") as f:
+    for line in f:
+        print(line)

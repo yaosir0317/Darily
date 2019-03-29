@@ -35,6 +35,5 @@ class B(A):
         self._f1(x)
 
 
-
-obj = B()
-obj.f4(2)
+def shif():
+    pass

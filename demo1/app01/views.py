@@ -606,7 +606,7 @@ class StatisticsView(View):
         delta1 = datetime.timedelta(days=1)  # 前一天的 年-月-日
         delta2 = datetime.timedelta(weeks=1)  # 一周前的 年-月-日
         delta3 = datetime.timedelta(weeks=26)  # 26周前的 年-月-日
-
+        print()
         # 相应时间对应的过滤条件
         condition = {
             "today": [{"deal_date": now}, {"customers__deal_date": now}],

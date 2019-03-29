@@ -1,0 +1,128 @@
+（一）京东登录授权流程
+
+1. 商家后台京麦服务市场
+
+    用户（商家）购买服务，商家后台显示对应的应用服务
+
+2. 商家后台查看服务
+
+    用户点击：立即使
+
+3. 京东跳转（用户第一登录需要授权）
+
+    1）加载链接
+
+        http://fw.jd.com/useLoading.html?param={%22pin%22:%22Siffre%22,%22serviceCode%22:%22FW_GOODS-308417%22}
+
+    2）发送回调 URL+code+state
+
+        http://101.124.11.142/360web/base/jd.json?code=QZc9w4&state=eyJqb3NfcGFyYW1ldGVycyI6eyJ1c2VyX25hbWUiOiJTaWZmcmUiLCJlbmRfZGF0ZSI6MTU3MTAxNzA0NzAwMCwiaXRlbV9jb2RlIjoiRldfR09PRFMtMzA4NDE3LTUiLCJhcnRpY2xlX251bSI6MSwidmVyc2lvbl9ubyI6NSwiYXBwX2tleSI6IjlDNjg0Q0Q2NkRGRDU2NEVGNEU4QkZDMzcyNDIzMUVCIn19
+
+4. 应用方
+
+    通过回调URL+code+state获取对应的数据，解析URL 获取code值和state值
+
+    注释：
+        code 为授权码，来自京东
+        state 包含购买用户信息
+        {
+          'jos_parameters': {
+            'user_name': 'Siffre',
+            'end_date': 1571017047000,
+            'item_code': 'FW_GOODS-308417-5',
+            'article_num': 1,
+            'version_no': 5,
+            'app_key': '9C684CD66DFD564EF4E8BFC3724231EB'
+          }
+        }
+
+        item_code为 购买的收费项目编码，
+        user_name 为购买人，
+        end_date 为到期时间，
+        version_no 是购买的版本号，
+        source 用来标识调用来源
+        使用者可以通过收费项目编码或者版本号来指定自己软件对应的服务。
+
+
+（二）京东获取access_token流程
+
+1. 获取授权code码
+
+    根据上述授权流程获取授权code
+
+2. 获取access_token
+
+    1）根据code，构造如下URL
+
+        https://oauth.jd.com/oauth/token?grant_type=authorization_code&
+        # APP_KEY
+        client_id=YOUR_CLIENT_ID&
+        # 回调URL
+        redirect_uri=YOUR_REGISTERED_REDIRECT_URI&
+        # 授权code
+        code=GET_CODE&
+        # 自定义字段
+        state=YOUR_CUSTOM_CODE&
+        # APP_SECRET
+        client_secret= YOUR_APP_SECRET
+
+    2）POST请求，返回数据结构
+
+        结构：
+            {
+                "access_token": "asgf-23gsdfgb3",
+                "code": 0,
+                "expires_in": 345623,
+                "refresh_token": "kjnre-gawjgrh345",
+                "scope": "read",
+                "time": "1345678345",
+                "token_type": "bearer",
+                "uid": "",
+                "user_nick": ""
+            }
+
+        注释：
+            uid：授权用户对应的京东ID
+            user_nick：授权用户对应的京东昵称
+            expires_in：失效时间（从当前时间算起，单位：秒）
+            time：授权的时间点（UNIX时间戳，单位：毫秒）
+            token_type：token类型（暂无意义）
+
+
+（三）京东刷新access_token流程
+
+1. 基础请求
+
+    请求的地址：https://oauth.jd.com/oauth/token
+    请求的方式：http post
+
+    https://oauth.jd.com/oauth/token?
+    client_id=YOUR_CLIENT_ID&
+    client_secret=YOUR_CLIENT_ID&
+    # 固定参数
+    grant_type=refresh_token&
+    # 授权后返回的refresh_token值
+    refresh_token=YOUR_REFRESH_TOKEN
+
+2. 返回数据结构
+
+    结构：
+            {
+                "access_token": "asgf-23gsdfgb3",
+                "code": 0,
+                "expires_in": 345623,
+                "refresh_token": "kjnre-gawjgrh345",
+                "scope": "read",
+                "time": "1345678345",
+                "token_type": "bearer",
+                "uid": "",
+                "user_nick": ""
+            }
+
+    注释：
+        uid：授权用户对应的京东ID
+        user_nick：授权用户对应的京东昵称
+        expires_in：失效时间（从当前时间算起，单位：秒）
+        time：授权的时间点（UNIX时间戳，单位：毫秒）
+        token_type：token类型（暂无意义）
+
