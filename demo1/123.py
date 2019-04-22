@@ -37,3 +37,23 @@ class B(A):
 
 def shif():
     pass
+
+
+def decorator(data):
+    def outer(func):
+        def inner(name, *args, **kwargs):
+            if name in data:
+                return func(name, *args, **kwargs)
+        return inner
+    return outer
+
+
+ls = ["赵一宁", "春生"]
+
+
+@decorator(ls)
+def test(name, age):
+    print(name, age)
+
+
+test("赵一宁", 38)

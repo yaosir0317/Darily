@@ -31,7 +31,7 @@ def initial_sesson(user, request):
         # 构建权限列表
         permission_list.append({
             "url": item["permissions__url"],
-            "id": item["permissions__pk"],
+            "id": item["permissions__pk"],                 
             "pid": item["permissions__pid"],
             "title": item["permissions__title"],
         })
