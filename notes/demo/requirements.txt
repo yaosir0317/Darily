@@ -24,7 +24,7 @@ hyperlink==18.0.0
 idna==2.8
 incremental==17.5.0
 itypes==1.1.0
-Jinja2==2.10
+Jinja2==2.11.3
 kombu==4.2.2.post1
 lxml==4.2.6
 MarkupSafe==1.1.0
